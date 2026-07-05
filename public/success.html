@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Commande Confirmée — LUMEA</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body style="background:var(--off-white)">
+
+  <header class="header scrolled">
+    <div class="container">
+      <a href="/" class="logo">LU<span>ME</span>A</a>
+    </div>
+  </header>
+
+  <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:120px 24px 60px">
+    <div style="text-align:center;max-width:500px">
+      <div style="width:80px;height:80px;border-radius:50%;background:var(--gold);margin:0 auto 24px;display:flex;align-items:center;justify-content:center">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h1 style="font-family:var(--font-heading);font-size:36px;font-weight:400;margin-bottom:12px;color:var(--black)">Merci pour votre commande !</h1>
+      <p id="orderNumber" style="font-size:14px;color:var(--gray);margin-bottom:8px"></p>
+      <p style="font-size:15px;color:var(--gray);line-height:1.7;margin-bottom:32px">
+        Votre commande a bien été enregistrée. Vous recevrez un email de confirmation avec les détails de livraison.
+      </p>
+
+      <div id="orderDetails" style="background:var(--white);padding:24px;text-align:left;margin-bottom:32px;border:1px solid rgba(0,0,0,0.06)"></div>
+
+      <a href="/" class="btn btn-primary">Retour à la boutique</a>
+
+      <div style="margin-top:40px;padding-top:32px;border-top:1px solid rgba(0,0,0,0.06)">
+        <p style="font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:12px">Suivez-nous</p>
+        <p style="font-size:14px;color:var(--gray)">Partagez votre achat sur TikTok avec <strong style="color:var(--gold)">#LUMEA</strong> et obtenez <strong>15% de rabais</strong> sur votre prochaine commande !</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const orderId = new URLSearchParams(window.location.search).get('order');
+    if (orderId) {
+      document.getElementById('orderNumber').textContent = 'Commande n° ' + orderId;
+
+      fetch('/api/orders/' + orderId)
+        .then(r => r.json())
+        .then(order => {
+          const details = document.getElementById('orderDetails');
+          let html = '<div style="margin-bottom:16px">';
+          order.items.forEach(item => {
+            html += '<div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:14px"><span>' + item.name + ' × ' + item.qty + '</span><span>' + item.total.toFixed(2) + ' $</span></div>';
+          });
+          html += '</div>';
+          html += '<div style="border-top:1px solid rgba(0,0,0,0.06);padding-top:12px">';
+          html += '<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--gray);margin-bottom:4px"><span>Sous-total</span><span>' + order.subtotal.toFixed(2) + ' $</span></div>';
+          html += '<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--gray);margin-bottom:4px"><span>Livraison</span><span>' + (order.shipping === 0 ? 'Gratuit' : order.shipping.toFixed(2) + ' $') + '</span></div>';
+          html += '<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--gray);margin-bottom:8px"><span>Taxes (TPS+TVQ)</span><span>' + order.tax.toFixed(2) + ' $</span></div>';
+          html += '<div style="display:flex;justify-content:space-between;font-size:16px;font-weight:700;padding-top:8px;border-top:1px solid rgba(0,0,0,0.06)"><span>Total</span><span>' + order.total.toFixed(2) + ' $</span></div>';
+          html += '</div>';
+          details.innerHTML = html;
+        })
+        .catch(() => {
+          document.getElementById('orderDetails').style.display = 'none';
+        });
+    }
+
+    // TikTok Pixel - Purchase Event
+    if (window.ttq) {
+      ttq.track('CompletePayment', { content_type: 'product' });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LUMEA — Soins de Peau Luxueux</title>
+  <meta name="description" content="LUMEA - Soins de peau haut de gamme. Sérums, crèmes et nettoyants formulés avec des ingrédients naturels pour révéler l'éclat de votre peau.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+
+  <!-- TikTok Pixel -->
+  <script>
+    !function(w,d,t){w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var i=d.createElement("script");i.type="text/javascript",i.async=!0,i.src=r+"?sdkid="+e+"&lib="+t;var a=d.getElementsByTagName("script")[0];a.parentNode.insertBefore(i,a)};
+    window.__TIKTOK_PIXEL_LOADED__ = false;
+    fetch('/api/config').then(r=>r.json()).then(cfg=>{
+      if(cfg.tiktokPixelId && !cfg.tiktokPixelId.includes('VOTRE')){
+        ttq.load(cfg.tiktokPixelId);
+        ttq.page();
+        window.__TIKTOK_PIXEL_LOADED__ = true;
+      }
+    }).catch(()=>{});
+    }(window,document,'ttq');
+  </script>
+</head>
+<body>
+
+  <!-- ==================== PROMO BANNER ==================== -->
+  <div class="promo-banner" id="promoBanner">
+    <div class="container">
+      <p>OFFRE DE LANCEMENT : <strong>-25%</strong> sur votre 1re commande avec le code <strong>LUMEA25</strong> | Livraison gratuite dès 75 $</p>
+    </div>
+  </div>
+
+  <!-- ==================== SOCIAL PROOF POPUP ==================== -->
+  <div class="social-proof" id="socialProof">
+    <div class="social-proof-dot"></div>
+    <p id="socialProofText"></p>
+  </div>
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="header">
+    <div class="container">
+      <a href="#" class="logo">LU<span>ME</span>A</a>
+
+      <nav class="nav-links">
+        <a href="#accueil">Accueil</a>
+        <a href="#produits">Produits</a>
+        <a href="#apropos">Notre Histoire</a>
+        <a href="#avis">Avis</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="cart-btn" aria-label="Panier">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 01-8 0"/>
+          </svg>
+          <span class="cart-count">0</span>
+        </button>
+        <button class="menu-toggle" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="hero" id="accueil">
+    <div class="hero-content">
+      <div class="hero-badge">Collection Signature</div>
+      <h1>Révélez la <em>lumière</em> de votre peau</h1>
+      <p>Des soins haut de gamme formulés avec les meilleurs actifs naturels pour une peau éclatante, hydratée et visiblement transformée.</p>
+      <div class="hero-actions">
+        <a href="#produits" class="btn btn-primary">Découvrir</a>
+        <a href="#apropos" class="btn btn-outline">Notre Histoire</a>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ==================== MARQUEE ==================== -->
+  <div class="marquee-section">
+    <div class="marquee-track">
+      <span>Naturel</span>
+      <span class="gold">✦</span>
+      <span>Vegan</span>
+      <span class="gold">✦</span>
+      <span>Cruelty-Free</span>
+      <span class="gold">✦</span>
+      <span>Sans Paraben</span>
+      <span class="gold">✦</span>
+      <span>Formulé au Canada</span>
+      <span class="gold">✦</span>
+      <span>Dermatologiquement Testé</span>
+      <span class="gold">✦</span>
+      <span>Naturel</span>
+      <span class="gold">✦</span>
+      <span>Vegan</span>
+      <span class="gold">✦</span>
+      <span>Cruelty-Free</span>
+      <span class="gold">✦</span>
+      <span>Sans Paraben</span>
+      <span class="gold">✦</span>
+      <span>Formulé au Canada</span>
+      <span class="gold">✦</span>
+      <span>Dermatologiquement Testé</span>
+      <span class="gold">✦</span>
+    </div>
+  </div>
+
+  <!-- ==================== PRODUCTS ==================== -->
+  <section class="section products-section" id="produits">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Nos Soins</span>
+        <h2 class="section-title">La Collection LUMEA</h2>
+        <p class="section-subtitle">Trois essentiels pour une routine complète, pensée pour sublimer chaque type de peau.</p>
+      </div>
+
+      <div class="products-grid">
+        <!-- Product 1: Sérum -->
+        <div class="product-card reveal" data-id="1">
+          <span class="product-badge">Best-seller</span>
+          <div class="product-image">
+            <img src="images/serum.png" alt="Sérum Éclat LUMEA">
+            <div class="product-overlay">
+              <button class="btn btn-primary add-to-cart-btn" data-id="1">Ajouter</button>
+              <button class="btn btn-dark quick-view-btn" data-id="1">Détails</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-category">Soin Visage</div>
+            <h3 class="product-name">Sérum Éclat</h3>
+            <p class="product-desc">Vitamine C pure & acide hyaluronique pour un teint lumineux</p>
+            <div class="product-price">49 $ <span class="old-price">65 $</span></div>
+          </div>
+        </div>
+
+        <!-- Product 2: Crème -->
+        <div class="product-card reveal" data-id="2">
+          <div class="product-image">
+            <img src="images/creme.png" alt="Crème Hydra-Luxe LUMEA">
+            <div class="product-overlay">
+              <button class="btn btn-primary add-to-cart-btn" data-id="2">Ajouter</button>
+              <button class="btn btn-dark quick-view-btn" data-id="2">Détails</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-category">Hydratation</div>
+            <h3 class="product-name">Crème Hydra-Luxe</h3>
+            <p class="product-desc">Hydratation 72h au beurre de karité bio & squalane</p>
+            <div class="product-price">59 $</div>
+          </div>
+        </div>
+
+        <!-- Product 3: Nettoyant -->
+        <div class="product-card reveal" data-id="3">
+          <span class="product-badge">Nouveau</span>
+          <div class="product-image">
+            <img src="images/nettoyant.png" alt="Nettoyant Pur LUMEA">
+            <div class="product-overlay">
+              <button class="btn btn-primary add-to-cart-btn" data-id="3">Ajouter</button>
+              <button class="btn btn-dark quick-view-btn" data-id="3">Détails</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-category">Nettoyage</div>
+            <h3 class="product-name">Nettoyant Pur</h3>
+            <p class="product-desc">Gel doux au thé vert & aloe vera pour une peau purifiée</p>
+            <div class="product-price">35 $ <span class="old-price">45 $</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== BENEFITS ==================== -->
+  <section class="section benefits-section">
+    <div class="container">
+      <div class="benefits-grid">
+        <div class="benefit-card reveal">
+          <div class="benefit-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h4>100% Naturel</h4>
+          <p>Ingrédients d'origine naturelle, sans produits chimiques nocifs</p>
+        </div>
+        <div class="benefit-card reveal">
+          <div class="benefit-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <h4>Testé Cliniquement</h4>
+          <p>Efficacité prouvée par des dermatologues indépendants</p>
+        </div>
+        <div class="benefit-card reveal">
+          <div class="benefit-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5a2 2 0 01-2 2h-1"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          </div>
+          <h4>Livraison Gratuite</h4>
+          <p>Livraison offerte dès 75 $ d'achat partout au Canada</p>
+        </div>
+        <div class="benefit-card reveal">
+          <div class="benefit-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+          </div>
+          <h4>Expédié du Canada</h4>
+          <p>Expédition rapide depuis nos entrepôts canadiens</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== ABOUT ==================== -->
+  <section class="section about-section" id="apropos">
+
+    <!-- ==================== TIKTOK VIRAL SECTION ==================== -->
+    <div class="tiktok-banner reveal">
+      <div class="container">
+        <div class="tiktok-content">
+          <div class="tiktok-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.52a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.87a8.16 8.16 0 004.76 1.52v-3.4a4.85 4.85 0 01-1-.3z"/></svg>
+          </div>
+          <div>
+            <span class="tiktok-label">VIRAL SUR TIKTOK</span>
+            <h3>+2.5M de vues sur nos routines skincare</h3>
+            <p>Rejoignez des milliers de femmes qui partagent leur transformation avec #LUMEA</p>
+          </div>
+          <div class="tiktok-stats">
+            <div><strong>2.5M+</strong><span>Vues</span></div>
+            <div><strong>45K+</strong><span>Likes</span></div>
+            <div><strong>8K+</strong><span>Partages</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-image reveal">
+          <div class="about-image-inner">
+            <span class="logo-large">LUMEA</span>
+          </div>
+        </div>
+        <div class="about-content reveal">
+          <span class="section-label">Notre Histoire</span>
+          <h2 class="section-title">La beauté par la science et la nature</h2>
+          <p class="about-text">LUMEA est née de la conviction que les meilleurs soins naissent de la rencontre entre la science dermatologique avancée et les trésors de la nature.</p>
+          <p class="about-text">Chaque formule est le fruit de mois de recherche pour offrir des résultats visibles, tout en respectant votre peau et l'environnement. Nos ingrédients sont sourcés de manière éthique et nos emballages sont éco-responsables.</p>
+          <div class="about-stats">
+            <div class="stat">
+              <h3>15K+</h3>
+              <p>Clients satisfaits</p>
+            </div>
+            <div class="stat">
+              <h3>98%</h3>
+              <p>Satisfaction</p>
+            </div>
+            <div class="stat">
+              <h3>100%</h3>
+              <p>Naturel</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== TESTIMONIALS ==================== -->
+  <section class="section testimonials-section" id="avis">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Avis Clients</span>
+        <h2 class="section-title">Ce qu'elles disent</h2>
+        <p class="section-subtitle">Des milliers de femmes ont transformé leur peau avec LUMEA.</p>
+      </div>
+
+      <div class="testimonials-grid">
+        <div class="testimonial-card reveal">
+          <div class="stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="testimonial-text">"Le Sérum Éclat a complètement transformé ma peau en 3 semaines. Mon teint est lumineux et les taches ont nettement diminué. Je ne peux plus m'en passer !"</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">SC</div>
+            <div class="author-info">
+              <h5>Sophie C.</h5>
+              <span>Cliente depuis 6 mois</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card reveal">
+          <div class="stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="testimonial-text">"La Crème Hydra-Luxe est incroyable. Ma peau n'a jamais été aussi hydratée, même en hiver. La texture est fondante et l'odeur divine. Produit haut de gamme !"</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">ML</div>
+            <div class="author-info">
+              <h5>Marie L.</h5>
+              <span>Cliente depuis 1 an</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card reveal">
+          <div class="stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="testimonial-text">"J'ai offert le coffret complet à ma sœur et elle adore ! La qualité des produits est exceptionnelle. Le Nettoyant Pur laisse la peau douce sans tiraillement."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">AB</div>
+            <div class="author-info">
+              <h5>Amira B.</h5>
+              <span>Cliente depuis 3 mois</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== NEWSLETTER ==================== -->
+  <section class="newsletter-section" id="contact">
+    <div class="container">
+      <div class="newsletter-content">
+        <span class="section-label">Newsletter</span>
+        <h2 class="section-title" style="color:#fff">Rejoignez la famille LUMEA</h2>
+        <p>Recevez nos conseils beauté, offres exclusives et -10% sur votre première commande.</p>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Votre adresse email" required>
+          <button type="submit">S'inscrire</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="logo">LU<span>ME</span>A</a>
+          <p>Des soins de peau haut de gamme, formulés au Canada avec les meilleurs actifs naturels.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Instagram">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="#" aria-label="TikTok">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12a4 4 0 104 4V4a5 5 0 005 5"/></svg>
+            </a>
+            <a href="#" aria-label="Facebook">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Boutique</h4>
+          <a href="#produits">Tous les produits</a>
+          <a href="#">Coffrets cadeaux</a>
+          <a href="#">Routine complète</a>
+          <a href="#">Carte cadeau</a>
+        </div>
+        <div class="footer-col">
+          <h4>Aide</h4>
+          <a href="#">FAQ</a>
+          <a href="#">Livraison</a>
+          <a href="#">Retours</a>
+          <a href="#">Nous contacter</a>
+        </div>
+        <div class="footer-col">
+          <h4>Légal</h4>
+          <a href="#">Conditions d'utilisation</a>
+          <a href="#">Politique de remboursement</a>
+          <a href="#">Politique de confidentialité</a>
+          <a href="#">Cookies</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 LUMEA Canada. Tous droits réservés.</p>
+        <div class="footer-payments">
+          <span>Visa</span>
+          <span>Mastercard</span>
+          <span>PayPal</span>
+          <span>Apple Pay</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== CART SIDEBAR ==================== -->
+  <div class="cart-overlay"></div>
+  <aside class="cart-sidebar">
+    <div class="cart-header">
+      <h3>Votre Panier</h3>
+      <button class="cart-close">×</button>
+    </div>
+    <div class="cart-items">
+      <div class="cart-empty">
+        <div class="cart-empty-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        </div>
+        <p>Votre panier est vide</p>
+      </div>
+    </div>
+    <div class="cart-footer" style="display:none">
+      <div class="cart-subtotal">
+        <span>Sous-total</span>
+        <strong class="subtotal-value">0 $</strong>
+      </div>
+      <div class="cart-subtotal">
+        <span>Livraison</span>
+        <strong class="shipping-value">Gratuit</strong>
+      </div>
+      <div class="cart-total">
+        <span>Total</span>
+        <strong class="total-value">0 $</strong>
+      </div>
+      <button class="btn btn-primary checkout-btn">Commander</button>
+      <button class="btn btn-outline continue-shopping-btn" style="border-color:rgba(0,0,0,0.15);color:var(--gray-dark)">Continuer mes achats</button>
+    </div>
+  </aside>
+
+  <!-- ==================== PRODUCT MODAL ==================== -->
+  <div class="modal-overlay" id="productModal">
+    <div class="modal" role="dialog">
+      <button class="modal-close">×</button>
+      <div class="modal-body">
+        <div class="modal-image">
+          <img src="" alt="">
+        </div>
+        <div class="modal-content">
+          <div class="product-category"></div>
+          <h2 class="product-name"></h2>
+          <div class="product-price"></div>
+          <p class="modal-description"></p>
+          <ul class="modal-features"></ul>
+          <div class="modal-qty">
+            <label>Quantité</label>
+            <div class="modal-qty-controls">
+              <button class="modal-qty-minus">−</button>
+              <span class="modal-qty-value">1</span>
+              <button class="modal-qty-plus">+</button>
+            </div>
+          </div>
+          <div class="modal-actions">
+            <button class="btn btn-primary modal-add-btn" data-id="">Ajouter au panier</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== CHECKOUT MODAL ==================== -->
+  <div class="modal-overlay checkout-modal" id="checkoutModal">
+    <div class="modal" role="dialog">
+      <button class="modal-close">×</button>
+      <div class="modal-body">
+        <h2 class="checkout-title">Finaliser la commande</h2>
+        <p class="checkout-subtitle">Vos informations de livraison — le paiement sera sécurisé via Stripe</p>
+
+        <form onsubmit="handleCheckout(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Prénom</label>
+              <input type="text" name="firstname" placeholder="Votre prénom" required>
+            </div>
+            <div class="form-group">
+              <label>Nom</label>
+              <input type="text" name="lastname" placeholder="Votre nom" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="votre@email.com" required>
+          </div>
+
+          <div class="form-group">
+            <label>Téléphone</label>
+            <input type="tel" name="phone" placeholder="+1 514 123 4567">
+          </div>
+
+          <div class="form-group">
+            <label>Adresse</label>
+            <input type="text" name="address" placeholder="123 Rue Sainte-Catherine" required>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Ville</label>
+              <input type="text" name="city" placeholder="Montréal" required>
+            </div>
+            <div class="form-group">
+              <label>Province</label>
+              <select name="province" required>
+                <option value="">Sélectionner</option>
+                <option value="QC">Québec</option>
+                <option value="ON">Ontario</option>
+                <option value="BC">Colombie-Britannique</option>
+                <option value="AB">Alberta</option>
+                <option value="MB">Manitoba</option>
+                <option value="SK">Saskatchewan</option>
+                <option value="NS">Nouvelle-Écosse</option>
+                <option value="NB">Nouveau-Brunswick</option>
+                <option value="NL">Terre-Neuve-et-Labrador</option>
+                <option value="PE">Île-du-Prince-Édouard</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+              <label>Code postal</label>
+              <input type="text" name="zipcode" placeholder="H2X 1K8" required>
+          </div>
+
+          <div class="checkout-summary">
+            <div class="checkout-items-summary"></div>
+            <div class="checkout-summary-row">
+              <span>Sous-total</span>
+              <span class="checkout-subtotal">0 $</span>
+            </div>
+            <div class="checkout-summary-row">
+              <span>Livraison</span>
+              <span class="checkout-shipping">Gratuit</span>
+            </div>
+            <div class="checkout-summary-row">
+              <span>Taxes (TPS+TVQ)</span>
+              <span class="checkout-tax">0 $</span>
+            </div>
+            <div class="checkout-summary-row total">
+              <span>Total</span>
+              <span class="checkout-total">0 $</span>
+            </div>
+          </div>
+
+          <div class="checkout-actions">
+            <button type="submit" class="btn btn-primary checkout-submit-btn">Payer maintenant</button>
+            <p style="text-align:center;font-size:11px;color:var(--gray-light);margin-top:12px">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+              Paiement sécurisé par Stripe — vos données sont protégées
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== NOTIFICATION ==================== -->
+  <div class="notification" id="notification">
+    <span class="notification-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+    </span>
+    <div class="notification-text">
+      <strong>Panier mis à jour</strong>
+      <span></span>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

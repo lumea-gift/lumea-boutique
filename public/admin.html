@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — LUMEA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',sans-serif; background:#f5f5f5; color:#333; }
+
+    .login-page { min-height:100vh; display:flex; align-items:center; justify-content:center; background:#0a0a0a; }
+    .login-box { background:#fff; padding:48px 40px; width:100%; max-width:400px; text-align:center; }
+    .login-box h1 { font-size:28px; font-weight:400; letter-spacing:6px; margin-bottom:8px; }
+    .login-box h1 span { color:#C9A96E; }
+    .login-box p { font-size:13px; color:#999; margin-bottom:32px; }
+    .login-box input { width:100%; padding:14px 16px; border:1px solid #ddd; font-size:14px; font-family:inherit; margin-bottom:16px; outline:none; }
+    .login-box input:focus { border-color:#C9A96E; }
+    .login-box button { width:100%; padding:16px; background:#C9A96E; color:#0a0a0a; border:none; font-size:12px; font-weight:700; letter-spacing:3px; text-transform:uppercase; cursor:pointer; }
+    .login-box button:hover { background:#D4BA8A; }
+    .login-error { color:#E53935; font-size:13px; margin-bottom:16px; display:none; }
+
+    .dashboard { display:none; }
+    .topbar { background:#0a0a0a; color:#fff; padding:16px 32px; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:100; }
+    .topbar h1 { font-size:18px; font-weight:400; letter-spacing:4px; }
+    .topbar h1 span { color:#C9A96E; }
+    .topbar-actions { display:flex; gap:16px; align-items:center; }
+    .topbar-actions a { color:rgba(255,255,255,0.6); font-size:13px; text-decoration:none; }
+    .topbar-actions a:hover { color:#C9A96E; }
+    .logout-btn { background:none; border:1px solid rgba(255,255,255,0.2); color:#fff; padding:8px 20px; font-size:11px; letter-spacing:2px; text-transform:uppercase; cursor:pointer; font-family:inherit; }
+    .logout-btn:hover { border-color:#C9A96E; color:#C9A96E; }
+
+    .stats-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; padding:24px 32px; }
+    .stat-card { background:#fff; padding:24px; border-left:3px solid #C9A96E; }
+    .stat-card .label { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:#999; margin-bottom:8px; }
+    .stat-card .value { font-size:32px; font-weight:300; color:#0a0a0a; }
+    .stat-card .value.revenue { color:#C9A96E; }
+
+    .section-title { padding:8px 32px 16px; font-size:11px; letter-spacing:3px; text-transform:uppercase; color:#999; }
+
+    .orders-table { margin:0 32px 32px; background:#fff; overflow-x:auto; }
+    table { width:100%; border-collapse:collapse; }
+    th { padding:14px 16px; text-align:left; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:#999; border-bottom:1px solid #eee; background:#fafafa; font-weight:600; }
+    td { padding:14px 16px; font-size:13px; border-bottom:1px solid #f5f5f5; }
+    tr:hover td { background:#fafaf8; }
+    .status { display:inline-block; padding:4px 12px; font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; border-radius:2px; }
+    .status.pending { background:#FFF3E0; color:#E65100; }
+    .status.confirmed { background:#E8F5E9; color:#2E7D32; }
+    .status.shipped { background:#E3F2FD; color:#1565C0; }
+    .status.delivered { background:#F3E5F5; color:#7B1FA2; }
+    .status.cancelled { background:#FFEBEE; color:#C62828; }
+
+    select.status-select { padding:6px 10px; border:1px solid #ddd; font-size:12px; font-family:inherit; cursor:pointer; outline:none; }
+    select.status-select:focus { border-color:#C9A96E; }
+
+    .newsletter-section { margin:0 32px 32px; background:#fff; padding:24px; }
+    .newsletter-section h3 { font-size:14px; font-weight:600; margin-bottom:16px; }
+    .subscriber-list { max-height:200px; overflow-y:auto; }
+    .subscriber { display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #f5f5f5; font-size:13px; }
+    .subscriber .email { color:#333; }
+    .subscriber .date { color:#999; font-size:12px; }
+
+    .empty-state { text-align:center; padding:60px 20px; color:#999; }
+    .empty-state p { font-size:14px; }
+
+    @media(max-width:768px) {
+      .stats-grid { grid-template-columns:repeat(2,1fr); padding:16px; }
+      .orders-table { margin:0 16px 16px; }
+      .newsletter-section { margin:0 16px 16px; }
+      .topbar { padding:16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN -->
+  <div class="login-page" id="loginPage">
+    <div class="login-box">
+      <h1>LU<span>ME</span>A</h1>
+      <p>Administration</p>
+      <div class="login-error" id="loginError">Mot de passe incorrect</div>
+      <form onsubmit="handleLogin(event)">
+        <input type="password" id="loginPassword" placeholder="Mot de passe admin" required>
+        <button type="submit">Connexion</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="dashboard" id="dashboard">
+    <div class="topbar">
+      <h1>LU<span>ME</span>A <span style="font-size:12px;color:rgba(255,255,255,0.4);letter-spacing:2px;margin-left:8px">ADMIN</span></h1>
+      <div class="topbar-actions">
+        <a href="/">Voir la boutique</a>
+        <button class="logout-btn" onclick="logout()">Déconnexion</button>
+      </div>
+    </div>
+
+    <div class="stats-grid" id="statsGrid"></div>
+
+    <div class="section-title">Commandes récentes</div>
+    <div class="orders-table">
+      <table>
+        <thead>
+          <tr>
+            <th>N° Commande</th>
+            <th>Client</th>
+            <th>Email</th>
+            <th>Produits</th>
+            <th>Total</th>
+            <th>Statut</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody id="ordersBody"></tbody>
+      </table>
+      <div class="empty-state" id="emptyOrders" style="display:none">
+        <p>Aucune commande pour le moment</p>
+      </div>
+    </div>
+
+    <div class="section-title">Abonnés Newsletter</div>
+    <div class="newsletter-section">
+      <div class="subscriber-list" id="subscriberList"></div>
+    </div>
+  </div>
+
+  <script>
+    let adminToken = localStorage.getItem('lumea_admin_token');
+
+    if (adminToken) {
+      showDashboard();
+    }
+
+    function handleLogin(e) {
+      e.preventDefault();
+      const pw = document.getElementById('loginPassword').value;
+
+      fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: pw })
+      })
+      .then(r => r.json())
+      .then(data => {
+        if (data.token) {
+          adminToken = data.token;
+          localStorage.setItem('lumea_admin_token', adminToken);
+          showDashboard();
+        } else {
+          document.getElementById('loginError').style.display = 'block';
+        }
+      })
+      .catch(() => {
+        document.getElementById('loginError').style.display = 'block';
+      });
+    }
+
+    function showDashboard() {
+      document.getElementById('loginPage').style.display = 'none';
+      document.getElementById('dashboard').style.display = 'block';
+      loadData();
+    }
+
+    function logout() {
+      localStorage.removeItem('lumea_admin_token');
+      location.reload();
+    }
+
+    function loadData() {
+      // Load orders
+      fetch('/api/admin/orders', {
+        headers: { 'Authorization': adminToken }
+      })
+      .then(r => {
+        if (r.status === 401) { logout(); return; }
+        return r.json();
+      })
+      .then(data => {
+        if (!data) return;
+
+        // Stats
+        document.getElementById('statsGrid').innerHTML = `
+          <div class="stat-card">
+            <div class="label">Commandes totales</div>
+            <div class="value">${data.stats.totalOrders}</div>
+          </div>
+          <div class="stat-card">
+            <div class="label">Revenus totaux</div>
+            <div class="value revenue">${data.stats.totalRevenue.toFixed(2)} $</div>
+          </div>
+          <div class="stat-card">
+            <div class="label">En attente</div>
+            <div class="value">${data.stats.pendingOrders}</div>
+          </div>
+          <div class="stat-card">
+            <div class="label">Confirmées</div>
+            <div class="value">${data.stats.confirmedOrders}</div>
+          </div>
+        `;
+
+        // Orders
+        const tbody = document.getElementById('ordersBody');
+        const empty = document.getElementById('emptyOrders');
+
+        if (data.orders.length === 0) {
+          tbody.innerHTML = '';
+          empty.style.display = 'block';
+        } else {
+          empty.style.display = 'none';
+          tbody.innerHTML = data.orders.map(o => `
+            <tr>
+              <td><strong>${o.id}</strong></td>
+              <td>${o.customer_name || '—'}</td>
+              <td>${o.customer_email || '—'}</td>
+              <td>${o.items.map(i => i.name + ' ×' + i.qty).join(', ')}</td>
+              <td><strong>${o.total.toFixed(2)} $</strong></td>
+              <td>
+                <select class="status-select" onchange="updateStatus('${o.id}', this.value)">
+                  ${['pending','confirmed','shipped','delivered','cancelled'].map(s =>
+                    '<option value="' + s + '"' + (s === o.status ? ' selected' : '') + '>' + s.charAt(0).toUpperCase() + s.slice(1) + '</option>'
+                  ).join('')}
+                </select>
+              </td>
+              <td>${new Date(o.created_at).toLocaleDateString('fr-CA')}</td>
+            </tr>
+          `).join('');
+        }
+      });
+
+      // Load newsletter
+      fetch('/api/admin/newsletter', {
+        headers: { 'Authorization': adminToken }
+      })
+      .then(r => r.json())
+      .then(subs => {
+        const list = document.getElementById('subscriberList');
+        if (subs.length === 0) {
+          list.innerHTML = '<p style="color:#999;font-size:13px">Aucun abonné</p>';
+        } else {
+          list.innerHTML = subs.map(s => `
+            <div class="subscriber">
+              <span class="email">${s.email}</span>
+              <span class="date">${new Date(s.created_at).toLocaleDateString('fr-CA')}</span>
+            </div>
+          `).join('');
+        }
+      });
+    }
+
+    function updateStatus(orderId, status) {
+      fetch('/api/admin/orders/' + orderId, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', 'Authorization': adminToken },
+        body: JSON.stringify({ status })
+      }).then(() => loadData());
+    }
+
+    // Auto-refresh every 30 seconds
+    setInterval(() => { if (adminToken) loadData(); }, 30000);
+  </script>
+</body>
+</html>
