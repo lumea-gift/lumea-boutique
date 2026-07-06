@@ -120,21 +120,21 @@ function generateGuide() {
   doc.fontSize(10).fillColor(GOLD).font('Helvetica').text('L U M E A', 0, 185, { align: 'center', characterSpacing: 6 });
   doc.fontSize(7.5).fillColor('#888').text('S K I N C A R E', 0, 200, { align: 'center', characterSpacing: 4 });
 
-  doc.y = 280;
-  doc.fontSize(36).fillColor(WHITE).font('Helvetica-Bold').text('Routine Peau', { align: 'center' });
-  doc.fontSize(40).fillColor(GOLD).font('Helvetica-BoldOblique').text('Parfaite', { align: 'center' });
-  doc.fontSize(36).fillColor(WHITE).font('Helvetica-Bold').text('30 Jours', { align: 'center' });
+  doc.y = 290;
+  doc.fontSize(28).fillColor(WHITE).font('Helvetica-Bold').text('Routine Peau', 60, doc.y, { width: W - 120, align: 'center' });
+  doc.fontSize(32).fillColor(GOLD).font('Helvetica-BoldOblique').text('Parfaite', 60, doc.y, { width: W - 120, align: 'center' });
+  doc.fontSize(28).fillColor(WHITE).font('Helvetica-Bold').text('30 Jours', 60, doc.y, { width: W - 120, align: 'center' });
 
   doc.rect(W / 2 - 30, doc.y + 10, 60, 2).fill(GOLD);
   doc.y += 28;
-  doc.fontSize(11).fillColor('#CCC').font('Helvetica')
-    .text('Le guide complet pour transformer', { align: 'center' })
-    .text('votre peau en 30 jours', { align: 'center' });
+  doc.fontSize(10).fillColor('#CCC').font('Helvetica')
+    .text('Le guide complet pour transformer', 60, doc.y, { width: W - 120, align: 'center' })
+    .text('votre peau en 30 jours', { width: W - 120, align: 'center' });
 
   doc.y += 20;
-  ['25+ Pages', 'Acc\u00e8s \u00e0 vie', 'Quiz exclusif', '5 Masques DIY'].forEach((b, i) => {
-    const bx = 105 + i * 110;
-    doc.roundedRect(bx, doc.y, 95, 22, 11).strokeColor(GOLD).lineWidth(0.6).stroke();
+  ['25+ Pages', 'Acces a vie', 'Quiz exclusif', '5 Masques DIY'].forEach((b, i) => {
+    const bx = 120 + i * 100;
+    doc.roundedRect(bx, doc.y, 85, 22, 11).strokeColor(GOLD).lineWidth(0.6).stroke();
     doc.fontSize(8).fillColor(GOLD).font('Helvetica').text(b, bx, doc.y + 7, { width: 95, align: 'center' });
   });
   doc.y += 45;
