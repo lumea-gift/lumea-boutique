@@ -117,8 +117,8 @@ function generateGuide() {
 
   doc.circle(W / 2, 195, 50).lineWidth(1).strokeColor(GOLD).stroke();
   doc.circle(W / 2, 195, 42).lineWidth(0.4).strokeColor('#555').stroke();
-  doc.fontSize(10).fillColor(GOLD).font('Helvetica').text('L U M E A', 0, 185, { align: 'center', characterSpacing: 6 });
-  doc.fontSize(7.5).fillColor('#888').text('S K I N C A R E', 0, 200, { align: 'center', characterSpacing: 4 });
+  doc.fontSize(7).fillColor(GOLD).font('Helvetica').text('L U M E A', 0, 191, { align: 'center', characterSpacing: 3 });
+  doc.fontSize(5.5).fillColor('#888').text('S K I N C A R E', 0, 202, { align: 'center', characterSpacing: 2 });
 
   doc.y = 290;
   doc.fontSize(28).fillColor(WHITE).font('Helvetica-Bold').text('Routine Peau', 60, 290, { width: W - 120, align: 'center' });
