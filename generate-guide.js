@@ -108,7 +108,7 @@ function generateGuide() {
   np(DARK);
   // Clean elegant cover
   doc.rect(45, 45, W - 90, 1.5).fill(GOLD);
-  doc.rect(45, H - 45, W - 90, 1.5).fill(GOLD);
+  doc.rect(45, H - 46.5, W - 90, 1.5).fill(GOLD);
   doc.rect(45, 45, 1.5, H - 90).fill('rgba(201,169,110,0.3)');
   doc.rect(W - 46.5, 45, 1.5, H - 90).fill('rgba(201,169,110,0.3)');
   [[45,45],[W-60,45],[45,H-60],[W-60,H-60]].forEach(([cx,cy]) => {
@@ -131,8 +131,8 @@ function generateGuide() {
     .text('votre peau en 30 jours', 60, 434, { width: W - 120, align: 'center' });
 
   const badgeY = 465;
-  ['\u0041\u0063\u0063\u00e8s \u00e0 vie', 'Quiz exclusif', '5 Masques DIY'].forEach((b, i) => {
-    const bx = 145 + i * 115;
+  ['Acc\u00e8s \u00e0 vie', 'Quiz exclusif', '5 Masques DIY'].forEach((b, i) => {
+    const bx = 141 + i * 115;
     doc.roundedRect(bx, badgeY, 100, 24, 12).strokeColor(GOLD).lineWidth(0.6).stroke();
     doc.fontSize(8.5).fillColor(GOLD).font('Helvetica').text(b, bx, badgeY + 7, { width: 100, align: 'center' });
   });
