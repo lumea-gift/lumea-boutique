@@ -3,69 +3,60 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Commande Confirmée — LUMEA</title>
+  <title>Merci ! Telechargez votre guide — LUMEA</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body style="background:var(--off-white)">
-
-  <header class="header scrolled">
-    <div class="container">
-      <a href="/" class="logo">LU<span>ME</span>A</a>
-    </div>
-  </header>
-
-  <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:120px 24px 60px">
-    <div style="text-align:center;max-width:500px">
-      <div style="width:80px;height:80px;border-radius:50%;background:var(--gold);margin:0 auto 24px;display:flex;align-items:center;justify-content:center">
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+<body>
+  <div class="success-page">
+    <div class="success-card">
+      <div class="success-icon">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="2">
+          <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
       </div>
-      <h1 style="font-family:var(--font-heading);font-size:36px;font-weight:400;margin-bottom:12px;color:var(--black)">Merci pour votre commande !</h1>
-      <p id="orderNumber" style="font-size:14px;color:var(--gray);margin-bottom:8px"></p>
-      <p style="font-size:15px;color:var(--gray);line-height:1.7;margin-bottom:32px">
-        Votre commande a bien été enregistrée. Vous recevrez un email de confirmation avec les détails de livraison.
-      </p>
-
-      <div id="orderDetails" style="background:var(--white);padding:24px;text-align:left;margin-bottom:32px;border:1px solid rgba(0,0,0,0.06)"></div>
-
-      <a href="/" class="btn btn-primary">Retour à la boutique</a>
-
-      <div style="margin-top:40px;padding-top:32px;border-top:1px solid rgba(0,0,0,0.06)">
-        <p style="font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:12px">Suivez-nous</p>
-        <p style="font-size:14px;color:var(--gray)">Partagez votre achat sur TikTok avec <strong style="color:var(--gold)">#LUMEA</strong> et obtenez <strong>15% de rabais</strong> sur votre prochaine commande !</p>
+      <h1>Merci pour votre achat !</h1>
+      <p class="success-order" id="orderNumber"></p>
+      <p class="success-subtitle">Votre guide est pret a etre telecharge.</p>
+      <div id="downloadSection" style="display:none">
+        <a id="downloadBtn" class="btn btn-primary btn-lg btn-full download-btn" href="#">Telecharger le Guide PDF</a>
+        <p class="download-info">Le fichier PDF sera sauvegarde sur votre appareil.<br>Vous pouvez re-telecharger a tout moment avec ce lien.</p>
       </div>
+      <div id="pendingSection" style="display:none">
+        <div class="pending-box"><div class="spinner"></div><p>Verification du paiement en cours...</p><p class="pending-sub">Cela prend quelques secondes.</p></div>
+      </div>
+      <div id="errorSection" style="display:none">
+        <div class="error-box"><p id="errorMessage">Une erreur est survenue.</p><button onclick="location.reload()" class="btn btn-outline" style="margin-top:16px">Reessayer</button></div>
+      </div>
+      <div class="success-share"><p>Partagez sur TikTok avec <strong>#LUMEA</strong> et aidez d'autres femmes !</p></div>
+      <div class="success-footer"><p>Questions ? <strong>mindsettouch@gmail.com</strong></p><a href="/" class="back-link">Retour au site LUMEA</a></div>
     </div>
   </div>
-
   <script>
-    const orderId = new URLSearchParams(window.location.search).get('order');
-    if (orderId) {
-      document.getElementById('orderNumber').textContent = 'Commande n° ' + orderId;
-
-      fetch('/api/orders/' + orderId)
-        .then(r => r.json())
-        .then(order => {
-          const details = document.getElementById('orderDetails');
-          let html = '<div style="margin-bottom:16px">';
-          order.items.forEach(item => {
-            html += '<div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:14px"><span>' + item.name + ' × ' + item.qty + '</span><span>' + item.total.toFixed(2) + ' $</span></div>';
-          });
-          html += '</div>';
-          html += '<div style="border-top:1px solid rgba(0,0,0,0.06);padding-top:12px">';
-          html += '<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--gray);margin-bottom:4px"><span>Sous-total</span><span>' + order.subtotal.toFixed(2) + ' $</span></div>';
-          html += '<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--gray);margin-bottom:4px"><span>Livraison</span><span>' + (order.shipping === 0 ? 'Gratuit' : order.shipping.toFixed(2) + ' $') + '</span></div>';
-          html += '<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--gray);margin-bottom:8px"><span>Taxes (TPS+TVQ)</span><span>' + order.tax.toFixed(2) + ' $</span></div>';
-          html += '<div style="display:flex;justify-content:space-between;font-size:16px;font-weight:700;padding-top:8px;border-top:1px solid rgba(0,0,0,0.06)"><span>Total</span><span>' + order.total.toFixed(2) + ' $</span></div>';
-          html += '</div>';
-          details.innerHTML = html;
-        })
-        .catch(() => {
-          document.getElementById('orderDetails').style.display = 'none';
-        });
-    }
-
-    // TikTok Pixel - Purchase Event
-    if (window.ttq) {
-      ttq.track('CompletePayment', { content_type: 'product' });
+    const params = new URLSearchParams(window.location.search);
+    const orderId = params.get('order'), token = params.get('token');
+    if (orderId) document.getElementById('orderNumber').textContent = 'Commande ' + orderId;
+    if (!orderId || !token) {
+      document.getElementById('errorSection').style.display = 'block';
+      document.getElementById('errorMessage').textContent = 'Lien invalide.';
+    } else { checkOrder(); }
+    async function checkOrder() {
+      document.getElementById('pendingSection').style.display = 'block';
+      let attempts = 0;
+      async function tryCheck() {
+        try {
+          const res = await fetch('/api/orders/' + orderId);
+          const order = await res.json();
+          if (order.status === 'confirmed' || order.status === 'delivered') { showDL(); }
+          else if (attempts < 10) { attempts++; setTimeout(tryCheck, 3000); }
+          else { showDL(); }
+        } catch (e) { if (attempts < 10) { attempts++; setTimeout(tryCheck, 3000); } else { document.getElementById('pendingSection').style.display='none'; document.getElementById('errorSection').style.display='block'; } }
+      }
+      function showDL() {
+        document.getElementById('pendingSection').style.display = 'none';
+        document.getElementById('downloadSection').style.display = 'block';
+        document.getElementById('downloadBtn').href = '/api/download/' + token;
+      }
+      tryCheck();
     }
   </script>
 </body>
