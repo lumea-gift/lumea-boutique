@@ -27,24 +27,26 @@ function generateGuide() {
     doc.fontSize(8).fillColor(GOLD).text(pg.toString(), W - 55, H - 38, { width: 20, align: 'right' });
   }
 
-  // Decorative pattern for headers
-  function headerDeco() {
-    for (let i = 0; i < 8; i++) {
-      doc.circle(50 + i * 75, 120, 20 + i * 3).lineWidth(0.3).strokeColor('rgba(201,169,110,0.15)').stroke();
-    }
+  // Corner decorations reusable
+  function corners() {
+    const M = 45, cL = 20, cT = 2.5;
+    doc.rect(M, M, cL, cT).fill(GOLD); doc.rect(M, M, cT, cL).fill(GOLD);
+    doc.rect(W-M-cL, M, cL, cT).fill(GOLD); doc.rect(W-M-cT, M, cT, cL).fill(GOLD);
+    doc.rect(M, H-M-cT, cL, cT).fill(GOLD); doc.rect(M, H-M-cL, cT, cL).fill(GOLD);
+    doc.rect(W-M-cL, H-M-cT, cL, cT).fill(GOLD); doc.rect(W-M-cT, H-M-cL, cT, cL).fill(GOLD);
   }
 
-  function banner(title, sub) {
+  function banner(icon, title, sub) {
     doc.rect(0, 0, W, 130).fill(DARK);
-    // Simple elegant line accent
     doc.rect(W / 2 - 25, 115, 50, 1).fill('rgba(201,169,110,0.3)');
     doc.rect(0, 128, W, 3).fill(GOLD);
-    doc.fontSize(9).fillColor(GOLD).font('Helvetica')
-      .text('L U M E A', 0, 22, { align: 'center', characterSpacing: 5 });
+    // Icon circle
+    doc.circle(W / 2, 28, 14).fill('rgba(201,169,110,0.15)');
+    doc.fontSize(14).fillColor(GOLD).font('Helvetica').text(icon, W / 2 - 7, 21, { width: 14, align: 'center' });
     doc.fontSize(22).fillColor(WHITE).font('Helvetica-Bold')
-      .text(title, 0, 46, { align: 'center' });
+      .text(title, 60, 50, { width: W - 120, align: 'center' });
     if (sub) doc.fontSize(11).fillColor(GOLD).font('Helvetica-Oblique')
-      .text(sub, 0, 78, { align: 'center' });
+      .text(sub, 60, 82, { width: W - 120, align: 'center' });
     doc.y = 150;
   }
 
@@ -60,11 +62,11 @@ function generateGuide() {
     doc.y = y0 + bh + 10;
   }
 
-  function step(n, title, desc) {
+  function step(n, title, desc, icon) {
     const y = doc.y;
     doc.circle(80, y + 10, 12).fill(GOLD);
     doc.fontSize(10).fillColor(WHITE).font('Helvetica-Bold').text(n.toString(), 72, y + 5, { width: 16, align: 'center' });
-    doc.fontSize(11).fillColor(DARK).font('Helvetica-Bold').text(title, 102, y + 1, { width: W - 170 });
+    doc.fontSize(11).fillColor(DARK).font('Helvetica-Bold').text((icon ? icon + ' ' : '') + title, 102, y + 1, { width: W - 170 });
     doc.fontSize(9.5).fillColor(GRAY).font('Helvetica').text(desc, 102, doc.y + 2, { width: W - 170, lineGap: 3 });
     doc.moveDown(0.6);
   }
@@ -90,9 +92,9 @@ function generateGuide() {
     doc.moveDown(0.3);
   }
 
-  function weekH(t) {
+  function weekH(t, icon) {
     doc.roundedRect(60, doc.y, W - 120, 21, 4).fill(GOLD);
-    doc.fontSize(10).fillColor(WHITE).font('Helvetica-Bold').text(t, 72, doc.y + 5);
+    doc.fontSize(10).fillColor(WHITE).font('Helvetica-Bold').text((icon || '') + '  ' + t, 72, doc.y + 5);
     doc.y += 27;
   }
 
@@ -104,64 +106,76 @@ function generateGuide() {
     doc.y = y + 14;
   }
 
+  function sectionBreak() {
+    const y = doc.y + 8;
+    doc.rect(60, y, W - 120, 0.5).fill('#E8E0D4');
+    doc.circle(W / 2 - 4, y, 3).fill(GOLD);
+    doc.circle(W / 2, y, 2).fill(GOLD);
+    doc.circle(W / 2 + 4, y, 3).fill(GOLD);
+    doc.y = y + 12;
+  }
+
   // ===== PAGE 1 : COVER =====
   np(DARK);
-  // Clean elegant cover
   doc.rect(45, 45, W - 90, 1.5).fill(GOLD);
   doc.rect(45, H - 46.5, W - 90, 1.5).fill(GOLD);
   doc.rect(45, 45, 1.5, H - 90).fill('rgba(201,169,110,0.3)');
   doc.rect(W - 46.5, 45, 1.5, H - 90).fill('rgba(201,169,110,0.3)');
-  // Coins visibles aux 4 coins
-  const M = 45, cL = 20, cT = 2.5;
-  doc.rect(M, M, cL, cT).fill(GOLD); doc.rect(M, M, cT, cL).fill(GOLD);
-  doc.rect(W-M-cL, M, cL, cT).fill(GOLD); doc.rect(W-M-cT, M, cT, cL).fill(GOLD);
-  doc.rect(M, H-M-cT, cL, cT).fill(GOLD); doc.rect(M, H-M-cL, cT, cL).fill(GOLD);
-  doc.rect(W-M-cL, H-M-cT, cL, cT).fill(GOLD); doc.rect(W-M-cT, H-M-cL, cT, cL).fill(GOLD);
+  corners();
 
-  doc.circle(W / 2, 195, 50).lineWidth(1).strokeColor(GOLD).stroke();
-  doc.circle(W / 2, 195, 42).lineWidth(0.4).strokeColor('#555').stroke();
-  doc.fontSize(7).fillColor(GOLD).font('Helvetica').text('L U M E A', 0, 191, { align: 'center', characterSpacing: 3 });
-  doc.fontSize(5.5).fillColor('#888').text('S K I N C A R E', 0, 202, { align: 'center', characterSpacing: 2 });
+  // Logo circle
+  doc.circle(W / 2, 180, 40).lineWidth(1).strokeColor(GOLD).stroke();
+  doc.circle(W / 2, 180, 33).lineWidth(0.4).strokeColor('#555').stroke();
+  doc.fontSize(6.5).fillColor(GOLD).font('Helvetica').text('L U M E A', W / 2 - 28, 177, { width: 56, align: 'center', characterSpacing: 2 });
+  doc.fontSize(5).fillColor('#888').text('S K I N C A R E', W / 2 - 28, 186, { width: 56, align: 'center', characterSpacing: 1.5 });
 
-  doc.y = 290;
-  doc.fontSize(28).fillColor(WHITE).font('Helvetica-Bold').text('Routine Peau', 60, 290, { width: W - 120, align: 'center' });
-  doc.fontSize(32).fillColor(GOLD).font('Helvetica-BoldOblique').text('Parfaite', 60, 325, { width: W - 120, align: 'center' });
-  doc.fontSize(28).fillColor(WHITE).font('Helvetica-Bold').text('30 Jours', 60, 365, { width: W - 120, align: 'center' });
+  // Title
+  doc.fontSize(28).fillColor(WHITE).font('Helvetica-Bold').text('Routine Peau', 60, 260, { width: W - 120, align: 'center' });
+  doc.fontSize(34).fillColor(GOLD).font('Helvetica-BoldOblique').text('Parfaite', 60, 295, { width: W - 120, align: 'center' });
+  doc.fontSize(28).fillColor(WHITE).font('Helvetica-Bold').text('30 Jours', 60, 338, { width: W - 120, align: 'center' });
 
-  doc.rect(W / 2 - 30, 405, 60, 2).fill(GOLD);
+  doc.rect(W / 2 - 30, 380, 60, 2).fill(GOLD);
   doc.fontSize(10).fillColor('#CCC').font('Helvetica')
-    .text('Le guide complet pour transformer', 60, 420, { width: W - 120, align: 'center' })
-    .text('votre peau en 30 jours', 60, 434, { width: W - 120, align: 'center' });
+    .text('Le guide complet pour transformer', 60, 396, { width: W - 120, align: 'center' })
+    .text('votre peau en 30 jours', 60, 410, { width: W - 120, align: 'center' });
 
-  const badgeY = 465;
-  ['Acc\u00e8s \u00e0 vie', 'Quiz exclusif', '5 Masques DIY'].forEach((b, i) => {
+  // Badges - 3 centered
+  const badgeY = 445;
+  ['\u2714 Acc\u00e8s \u00e0 vie', '\u2728 Quiz exclusif', '\u2618 5 Masques DIY'].forEach((b, i) => {
     const bx = 141 + i * 115;
     doc.roundedRect(bx, badgeY, 100, 24, 12).strokeColor(GOLD).lineWidth(0.6).stroke();
-    doc.fontSize(8.5).fillColor(GOLD).font('Helvetica').text(b, bx, badgeY + 7, { width: 100, align: 'center' });
+    doc.fontSize(8).fillColor(GOLD).font('Helvetica').text(b, bx, badgeY + 7, { width: 100, align: 'center' });
   });
-  doc.fontSize(9).fillColor(GOLD).text('Par les experts LUMEA  \u2022  \u00c9dition 2025  \u2022  Canada', 60, 510, { width: W - 120, align: 'center' });
 
-  // ===== PAGE 2 : TABLE DES MATI\u00c8RES =====
-  np(CREAM); banner('Table des Mati\u00e8res', 'Votre parcours vers une peau parfaite'); footer();
+  // Bottom text
+  doc.fontSize(9).fillColor(GOLD).text('Par les experts LUMEA  \u2022  \u00c9dition 2025  \u2022  Canada', 60, 490, { width: W - 120, align: 'center' });
+
+  // Clickable link
+  doc.fontSize(8).fillColor('#888')
+    .text('lumea-boutique.onrender.com', 60, 520, { width: W - 120, align: 'center', link: 'https://lumea-boutique.onrender.com', underline: true });
+
+  // ===== PAGE 2 : TABLE DES MATIERES =====
+  np(CREAM); banner('\u2630', 'Table des Mati\u00e8res', 'Votre parcours vers une peau parfaite'); footer();
   doc.y = 158;
+  const tocIcons = ['\u270E','\u2753','\u2B50','\u2600','\u263E','\u2697','\u2618','\u2764','\u26A0','\u2611','\u2754'];
   [['01','Introduction','Votre peau m\u00e9rite le meilleur'],['02','Quiz : Type de Peau','Identifiez votre type en 5 questions'],
    ['03','Les 5 Piliers','Les fondamentaux essentiels'],['04','Routine du Matin','5 \u00e9tapes en 5 minutes'],
    ['05','Routine du Soir','R\u00e9paration et actifs puissants'],['06','Ingr\u00e9dients Miracles','8 actifs prouv\u00e9s scientifiquement'],
    ['07','Masques Maison','5 recettes avec vos ingr\u00e9dients'],['08','Alimentation Beaut\u00e9','Nourrir sa peau de l\u2019int\u00e9rieur'],
    ['09','Erreurs Fatales','11 erreurs \u00e0 \u00e9viter absolument'],['10','Calendrier 30 Jours','Plan d\u2019action jour par jour'],
-   ['11','FAQ & Bonus','R\u00e9ponses et conseils']].forEach(([n, t, s]) => {
+   ['11','FAQ & Bonus','R\u00e9ponses et conseils']].forEach(([n, t, s], idx) => {
     const y = doc.y;
     doc.roundedRect(60, y, W - 120, 38, 5).fill(WHITE);
     doc.circle(84, y + 19, 12).fill(GOLD);
     doc.fontSize(9).fillColor(WHITE).font('Helvetica-Bold').text(n, 76, y + 14, { width: 16, align: 'center' });
-    doc.fontSize(11).fillColor(DARK).font('Helvetica-Bold').text(t, 106, y + 7, { width: 280 });
-    doc.fontSize(8.5).fillColor(GRAY).font('Helvetica').text(s, 106, y + 22, { width: 280 });
+    doc.fontSize(11).fillColor(DARK).font('Helvetica-Bold').text(tocIcons[idx] + '  ' + t, 106, y + 7, { width: 280 });
+    doc.fontSize(8.5).fillColor(GRAY).font('Helvetica').text(s, 118, y + 23, { width: 268 });
     doc.fontSize(10).fillColor(GOLD).text('\u2192', W - 82, y + 12);
     doc.y = y + 43;
   });
 
   // ===== PAGE 3 : INTRODUCTION =====
-  np(CREAM); banner('Introduction', 'Votre peau m\u00e9rite le meilleur'); footer();
+  np(CREAM); banner('\u270E', 'Introduction', 'Votre peau m\u00e9rite le meilleur'); footer();
   doc.y = 150;
   doc.fontSize(11).fillColor(DARK).font('Helvetica-Bold')
     .text('F\u00e9licitations pour votre d\u00e9cision d\u2019investir dans votre peau !', 60, doc.y, { width: W - 120 });
@@ -171,13 +185,13 @@ function generateGuide() {
   doc.moveDown(0.6);
   tip('\u00ab La beaut\u00e9 de la peau commence par une routine adapt\u00e9e et constante. Pas de produits miracles, mais une m\u00e9thode qui fonctionne. \u00bb', '\u201C', LGOLD);
   decoLine();
-  doc.fontSize(13).fillColor(DARK).font('Helvetica-Bold').text('Ce que vous allez apprendre', 60, doc.y); doc.moveDown(0.5);
-  ['Comment identifier votre type de peau exactement','La routine matin et soir adapt\u00e9e \u00e0 VOS besoins',
-   'Les ingr\u00e9dients qui fonctionnent vraiment (et ceux \u00e0 \u00e9viter)','Des recettes de masques maison simples et efficaces',
-   'Un calendrier jour par jour pour les 30 prochains jours','Les erreurs que 90% des femmes font (et comment les corriger)'].forEach(p => bullet(p));
+  doc.fontSize(13).fillColor(DARK).font('Helvetica-Bold').text('\u2728 Ce que vous allez apprendre', 60, doc.y); doc.moveDown(0.5);
+  ['\u2714 Comment identifier votre type de peau exactement','\u2714 La routine matin et soir adapt\u00e9e \u00e0 VOS besoins',
+   '\u2714 Les ingr\u00e9dients qui fonctionnent vraiment (et ceux \u00e0 \u00e9viter)','\u2714 Des recettes de masques maison simples et efficaces',
+   '\u2714 Un calendrier jour par jour pour les 30 prochains jours','\u2714 Les erreurs que 90% des femmes font (et comment les corriger)'].forEach(p => bullet(p));
 
   // ===== PAGE 4 : QUIZ =====
-  np(CREAM); banner('Quiz Exclusif', 'Quel est votre type de peau ?'); footer();
+  np(CREAM); banner('\u2753', 'Quiz Exclusif', 'Quel est votre type de peau ?'); footer();
   doc.y = 148;
   doc.fontSize(10).fillColor(GRAY).font('Helvetica')
     .text('R\u00e9pondez \u00e0 ces 5 questions pour d\u00e9couvrir votre type de peau et adapter votre routine.', 60, doc.y, { width: W - 120, lineGap: 3 });
@@ -189,38 +203,44 @@ function generateGuide() {
    {q:'Vos pores sont :',o:['A) Fins et peu visibles','B) Tr\u00e8s fins, presque invisibles','C) Dilat\u00e9s et visibles','D) Dilat\u00e9s sur le nez, fins sur les joues','E) Fins mais votre peau est r\u00e9active']},
    {q:'En hiver, votre peau :',o:['A) Va bien, pas de changement majeur','B) Desquame et tiraille beaucoup','C) Reste grasse','D) Les joues deviennent tr\u00e8s s\u00e8ches','E) Devient tr\u00e8s sensible au froid']}
   ].forEach((item, i) => {
-    if (doc.y > H - 160) { np(CREAM); banner('Quiz (suite)', ''); footer(); doc.y = 148; }
+    if (doc.y > H - 160) { np(CREAM); banner('\u2753', 'Quiz (suite)', ''); footer(); doc.y = 148; }
     const y = doc.y;
     doc.circle(77, y + 7, 10).fill(GOLD);
     doc.fontSize(9).fillColor(WHITE).font('Helvetica-Bold').text((i+1).toString(), 72, y + 3, { width: 10, align: 'center' });
     doc.fontSize(10.5).fillColor(DARK).font('Helvetica-Bold').text(item.q, 96, y, { width: W - 170 });
     doc.moveDown(0.2);
-    item.o.forEach(o => { doc.fontSize(9).fillColor(GRAY).font('Helvetica').text(o, 96, doc.y, { width: W - 170 }); doc.moveDown(0.1); });
+    item.o.forEach(o => {
+      const oy = doc.y;
+      doc.roundedRect(96, oy, 8, 8, 2).strokeColor(GOLD).lineWidth(0.5).stroke();
+      doc.fontSize(9).fillColor(GRAY).font('Helvetica').text(o, 110, oy, { width: W - 185 });
+      doc.moveDown(0.1);
+    });
     doc.moveDown(0.35);
   });
 
   doc.moveDown(0.2);
   const ry = doc.y;
-  doc.roundedRect(60, ry, W - 120, 95, 6).fill(LGOLD);
-  doc.roundedRect(60, ry, 3.5, 95, 2).fill(GOLD);
+  doc.roundedRect(60, ry, W - 120, 105, 6).fill(LGOLD);
+  doc.roundedRect(60, ry, 3.5, 105, 2).fill(GOLD);
   doc.fontSize(11).fillColor(DARK).font('Helvetica-Bold').text('\u2605 R\u00e9sultats :', 75, ry + 8);
   doc.fontSize(9).fillColor(GRAY).font('Helvetica');
-  ['Majorit\u00e9 de A = Peau Normale \u2014 Routine d\u2019entretien et pr\u00e9vention',
-   'Majorit\u00e9 de B = Peau S\u00e8che \u2014 Textures riches + acide hyaluronique',
-   'Majorit\u00e9 de C = Peau Grasse \u2014 Textures l\u00e9g\u00e8res + niacinamide + BHA',
-   'Majorit\u00e9 de D = Peau Mixte \u2014 Adapter les soins par zone du visage',
-   'Majorit\u00e9 de E = Peau Sensible \u2014 Formules douces, sans parfum'
+  ['\u2B50 Majorit\u00e9 de A = Peau Normale \u2014 Routine d\u2019entretien et pr\u00e9vention',
+   '\u2B50 Majorit\u00e9 de B = Peau S\u00e8che \u2014 Textures riches + acide hyaluronique',
+   '\u2B50 Majorit\u00e9 de C = Peau Grasse \u2014 Textures l\u00e9g\u00e8res + niacinamide + BHA',
+   '\u2B50 Majorit\u00e9 de D = Peau Mixte \u2014 Adapter les soins par zone du visage',
+   '\u2B50 Majorit\u00e9 de E = Peau Sensible \u2014 Formules douces, sans parfum'
   ].forEach(r => { doc.text(r, 75, doc.y + 1, { width: W - 155 }); });
 
   // ===== PAGE 5 : 5 PILIERS =====
-  np(CREAM); banner('Chapitre 1', 'Les 5 piliers d\u2019une peau parfaite'); footer();
+  np(CREAM); banner('\u2B50', 'Chapitre 1', 'Les 5 piliers d\u2019une peau parfaite'); footer();
   doc.y = 148;
+  const pillarIcons = ['\u{1F9F4}','\u{1F4A7}','\u2600','\u{1F34E}','\u{1F319}'];
   [{n:'01',t:'NETTOYAGE',d:'Un nettoyage doux matin et soir. Massez d\u00e9licatement en mouvements circulaires pendant 60 secondes. Jamais d\u2019eau chaude.'},
    {n:'02',t:'HYDRATATION',d:'M\u00eame les peaux grasses ont besoin d\u2019hydratation ! Renforcez la barri\u00e8re cutan\u00e9e. Appliquez toujours sur peau humide.'},
    {n:'03',t:'PROTECTION SOLAIRE',d:'SPF 30+ chaque matin, m\u00eame en hiver. Les UV causent 80% du vieillissement cutan\u00e9. C\u2019est le produit anti-\u00e2ge #1.'},
    {n:'04',t:'NUTRITION',d:'Antioxydants, om\u00e9ga-3, et 2L d\u2019eau par jour. Votre peau refl\u00e8te ce que vous mangez.'},
    {n:'05',t:'SOMMEIL',d:'7-8 heures de sommeil. Taie d\u2019oreiller en soie pour r\u00e9duire frictions et rides. La peau se r\u00e9g\u00e9n\u00e8re la nuit.'}
-  ].forEach(p => {
+  ].forEach((p, i) => {
     const y = doc.y, ch = 65;
     doc.roundedRect(60, y, W - 120, ch, 7).fill(WHITE);
     doc.roundedRect(60, y, W - 120, ch, 7).strokeColor('#E8E0D4').lineWidth(0.5).stroke();
@@ -232,9 +252,8 @@ function generateGuide() {
   tip('La constance est plus importante que le produit ! Une routine simple suivie chaque jour bat une routine complexe suivie 2 fois par semaine.', '\u2605', LGOLD);
 
   // ===== PAGE 6 : ROUTINE MATIN =====
-  np(CREAM); banner('Chapitre 2', 'Routine du matin \u2014 5 \u00e9tapes en 5 minutes'); footer();
+  np(CREAM); banner('\u2600', 'Chapitre 2', 'Routine du matin \u2014 5 \u00e9tapes en 5 minutes'); footer();
   doc.y = 145;
-
   doc.fontSize(10).fillColor(GRAY).font('Helvetica')
     .text('Votre routine du matin prot\u00e8ge votre peau pour la journ\u00e9e. Simple, rapide, efficace.', 60, doc.y, { width: W - 120, lineGap: 3 });
   doc.moveDown(0.5);
@@ -244,12 +263,12 @@ function generateGuide() {
    ['Cr\u00e8me hydratante (1 min)','Texture l\u00e9g\u00e8re (grasse) ou riche (s\u00e8che). Mouvements ascendants.'],
    ['SPF 30+ obligatoire (1 min)','LA \u00e9tape la plus importante ! 2 doigts de produit, 15 min avant exposition.']
   ].forEach((s,i) => step(i+1, s[0], s[1]));
+  sectionBreak();
   tip('Ordre d\u2019application : toujours du plus l\u00e9ger au plus \u00e9pais. S\u00e9rum avant cr\u00e8me !', '\u2605', BLUE);
 
   // ===== PAGE 7 : ROUTINE SOIR =====
-  np(CREAM); banner('Chapitre 3', 'Routine du soir \u2014 R\u00e9paration nocturne'); footer();
+  np(CREAM); banner('\u263E', 'Chapitre 3', 'Routine du soir \u2014 R\u00e9paration nocturne'); footer();
   doc.y = 145;
-
   doc.fontSize(10).fillColor(GRAY).font('Helvetica')
     .text('La nuit, votre peau se r\u00e9pare. C\u2019est le moment d\u2019utiliser vos actifs les plus puissants.', 60, doc.y, { width: W - 120, lineGap: 3 });
   doc.moveDown(0.5);
@@ -259,10 +278,11 @@ function generateGuide() {
    ['Contour des yeux (30 sec)','Peau 5x plus fine. Caf\u00e9ine ou r\u00e9tinol. Tapotez avec l\u2019annulaire.'],
    ['Cr\u00e8me de nuit ou huile (1 min)','Plus riche que le jour. Jojoba ou rose musqu\u00e9e. R\u00e9g\u00e9n\u00e9ration 22h-2h.']
   ].forEach((s,i) => step(i+1, s[0], s[1]));
+  sectionBreak();
   tip('Ne combinez JAMAIS r\u00e9tinol + AHA/BHA le m\u00eame soir. Alternez un soir sur deux.', '\u26A0', PINK);
 
   // ===== PAGE 8 : INGREDIENTS =====
-  np(CREAM); banner('Chapitre 4', 'Les 8 ingr\u00e9dients miracles'); footer();
+  np(CREAM); banner('\u2697', 'Chapitre 4', 'Les 8 ingr\u00e9dients miracles'); footer();
   doc.y = 145;
   doc.fontSize(10).fillColor(GRAY).font('Helvetica')
     .text('Ces actifs sont prouv\u00e9s scientifiquement. Apprenez \u00e0 les reconna\u00eetre sur les \u00e9tiquettes.', 60, doc.y, { width: W - 120, lineGap: 3 });
@@ -279,29 +299,30 @@ function generateGuide() {
     doc.y = y + ch + 5;
   }
 
-  ingCard('Vitamine C', 'Matin', '\u00c9clat, anti-taches, antioxydant puissant. Concentration 10-20%. Forme L-ascorbique = la plus efficace.', GREEN);
-  ingCard('R\u00e9tinol', 'Soir', 'Anti-\u00e2ge #1 au monde. Stimule le renouvellement cellulaire. Commencer 2x/semaine puis augmenter progressivement.', PINK);
-  ingCard('Acide hyaluronique', 'Matin+Soir', 'Retient 1000x son poids en eau. Appliquer sur peau humide obligatoirement pour maximiser l\u2019hydratation.', BLUE);
-  ingCard('Niacinamide (B3)', 'Matin+Soir', 'Resserre les pores, contr\u00f4le le s\u00e9bum, unifie le teint. Concentration 5-10%. Compatible avec tous les actifs.', LGOLD);
+  ingCard('\u2728 Vitamine C', 'Matin', '\u00c9clat, anti-taches, antioxydant puissant. Concentration 10-20%. Forme L-ascorbique = la plus efficace.', GREEN);
+  ingCard('\u2b50 R\u00e9tinol', 'Soir', 'Anti-\u00e2ge #1 au monde. Stimule le renouvellement cellulaire. Commencer 2x/semaine puis augmenter progressivement.', PINK);
+  ingCard('\u{1F4A7} Acide hyaluronique', 'Matin+Soir', 'Retient 1000x son poids en eau. Appliquer sur peau humide obligatoirement pour maximiser l\u2019hydratation.', BLUE);
+  ingCard('\u2605 Niacinamide (B3)', 'Matin+Soir', 'Resserre les pores, contr\u00f4le le s\u00e9bum, unifie le teint. Concentration 5-10%. Compatible avec tous les actifs.', LGOLD);
 
   // ===== PAGE 9 : INGREDIENTS SUITE =====
-  np(CREAM); banner('Chapitre 4 (suite)', 'Ingr\u00e9dients miracles'); footer();
+  np(CREAM); banner('\u2697', 'Chapitre 4 (suite)', 'Ingr\u00e9dients miracles'); footer();
   doc.y = 148;
-  ingCard('AHA (Acide glycolique)', '2x/sem soir', 'Exfoliant chimique pour peaux s\u00e8ches/ternes. R\u00e9v\u00e8le un teint lumineux. SPF obligatoire le lendemain.', GREEN);
-  ingCard('BHA (Acide salicylique)', '2x/sem soir', 'P\u00e9n\u00e8tre dans les pores pour les nettoyer en profondeur. Id\u00e9al peaux grasses/acn\u00e9iques. 1-2%.', BLUE);
-  ingCard('Peptides', 'Matin+Soir', 'Stimulent la production de collag\u00e8ne naturel. Compl\u00e9ment id\u00e9al du r\u00e9tinol. Peptides de cuivre ou Matrixyl.', LGOLD);
-  ingCard('SPF (Filtres solaires)', 'Matin', 'SPF 30 minimum. R\u00e9appliquer toutes les 2h. Le geste anti-\u00e2ge le plus sous-estim\u00e9 au monde.', PINK);
+  ingCard('\u2618 AHA (Acide glycolique)', '2x/sem soir', 'Exfoliant chimique pour peaux s\u00e8ches/ternes. R\u00e9v\u00e8le un teint lumineux. SPF obligatoire le lendemain.', GREEN);
+  ingCard('\u2618 BHA (Acide salicylique)', '2x/sem soir', 'P\u00e9n\u00e8tre dans les pores pour les nettoyer en profondeur. Id\u00e9al peaux grasses/acn\u00e9iques. 1-2%.', BLUE);
+  ingCard('\u2b50 Peptides', 'Matin+Soir', 'Stimulent la production de collag\u00e8ne naturel. Compl\u00e9ment id\u00e9al du r\u00e9tinol. Peptides de cuivre ou Matrixyl.', LGOLD);
+  ingCard('\u2600 SPF (Filtres solaires)', 'Matin', 'SPF 30 minimum. R\u00e9appliquer toutes les 2h. Le geste anti-\u00e2ge le plus sous-estim\u00e9 au monde.', PINK);
+  sectionBreak();
   tip('Un s\u00e9rum vitamine C \u00e0 20$ peut \u00eatre aussi efficace qu\u2019un \u00e0 100$. Lisez les \u00e9tiquettes (INCI), pas les publicit\u00e9s !', '\u2605', LGOLD);
 
   // ===== PAGE 10-11 : MASQUES =====
-  np(CREAM); banner('Chapitre 5', '5 recettes de masques maison'); footer();
+  np(CREAM); banner('\u2618', 'Chapitre 5', '5 recettes de masques maison'); footer();
   doc.y = 145;
   doc.fontSize(10).fillColor(GRAY).font('Helvetica')
     .text('Des masques efficaces avec des ingr\u00e9dients de votre cuisine. \u00c0 faire 1 \u00e0 2 fois par semaine.', 60, doc.y, { width: W - 120, lineGap: 3 });
   doc.moveDown(0.5);
 
   function mask(n, name, skin, ing, steps, bg) {
-    if (doc.y > H - 140) { np(CREAM); banner('Masques (suite)', 'Recettes naturelles'); footer(); doc.y = 148; }
+    if (doc.y > H - 140) { np(CREAM); banner('\u2618', 'Masques (suite)', 'Recettes naturelles'); footer(); doc.y = 148; }
     const y = doc.y;
     const ih = doc.heightOfString(ing, { width: W - 195, fontSize: 9.5 });
     const sh = doc.heightOfString(steps, { width: W - 195, fontSize: 9.5 });
@@ -310,11 +331,11 @@ function generateGuide() {
     doc.circle(81, y + 17, 13).fill(GOLD);
     doc.fontSize(11).fillColor(WHITE).font('Helvetica-Bold').text(n.toString(), 75, y + 12, { width: 12, align: 'center' });
     doc.fontSize(11).fillColor(DARK).font('Helvetica-Bold').text(name, 103, y + 9, { width: W - 195 });
-    doc.fontSize(8).fillColor(GOLD).font('Helvetica-Oblique').text('Pour : ' + skin, 103, y + 25);
-    doc.fontSize(9.5).fillColor(DARK).font('Helvetica-Bold').text('Ingr\u00e9dients :', 75, y + 40);
+    doc.fontSize(8).fillColor(GOLD).font('Helvetica-Oblique').text('\u2192 Pour : ' + skin, 103, y + 25);
+    doc.fontSize(9.5).fillColor(DARK).font('Helvetica-Bold').text('\u2618 Ingr\u00e9dients :', 75, y + 40);
     doc.fontSize(9.5).fillColor(GRAY).font('Helvetica').text(ing, 88, doc.y + 1, { width: W - 195, lineGap: 2 });
     doc.moveDown(0.2);
-    doc.fontSize(9.5).fillColor(DARK).font('Helvetica-Bold').text('Pr\u00e9paration :', 75);
+    doc.fontSize(9.5).fillColor(DARK).font('Helvetica-Bold').text('\u270B Pr\u00e9paration :', 75);
     doc.fontSize(9.5).fillColor(GRAY).font('Helvetica').text(steps, 88, doc.y + 1, { width: W - 195, lineGap: 2 });
     doc.y = y + ch + 7;
   }
@@ -336,7 +357,7 @@ function generateGuide() {
     'M\u00e9langez et gardez au frigo 10 min. Couche \u00e9paisse, 20 min. Id\u00e9al apr\u00e8s irritation ou coup de soleil.', '#F0FFF8');
 
   // ===== PAGE 12 : ALIMENTATION =====
-  np(CREAM); banner('Chapitre 6', 'Alimentation & beaut\u00e9 de la peau'); footer();
+  np(CREAM); banner('\u2764', 'Chapitre 6', 'Alimentation & beaut\u00e9 de la peau'); footer();
   doc.y = 145;
   doc.fontSize(10).fillColor(GRAY).font('Helvetica')
     .text('Ce que vous mangez a un impact direct sur votre peau. Voici les aliments \u00e0 privil\u00e9gier et ceux \u00e0 limiter.', 60, doc.y, { width: W - 120, lineGap: 3 });
@@ -359,7 +380,7 @@ function generateGuide() {
   tip('Buvez un verre d\u2019eau ti\u00e8de avec du citron chaque matin \u00e0 jeun. Votre peau vous remerciera d\u00e8s la premi\u00e8re semaine !', '\u2605', LGOLD);
 
   // ===== PAGE 13 : ERREURS =====
-  np(CREAM); banner('Chapitre 7', '11 erreurs fatales \u00e0 \u00e9viter'); footer();
+  np(CREAM); banner('\u26A0', 'Chapitre 7', '11 erreurs fatales \u00e0 \u00e9viter'); footer();
   doc.y = 148;
   [['Dormir avec son maquillage','Obstrue les pores, cause acn\u00e9 et vieillissement pr\u00e9matur\u00e9.'],
    ['Utiliser de l\u2019eau chaude','D\u00e9truit le film hydrolipidique. Toujours ti\u00e8de ou froide.'],
@@ -373,56 +394,56 @@ function generateGuide() {
    ['Utiliser des produits p\u00e9rim\u00e9s','V\u00e9rifiez la PAO (P\u00e9riode Apr\u00e8s Ouverture) sur chaque produit.'],
    ['Manquer de r\u00e9gularit\u00e9','La constance est plus importante que le produit le plus cher.']
   ].forEach(([t, d], i) => {
-    if (doc.y > H - 65) { np(CREAM); banner('Erreurs (suite)', ''); footer(); doc.y = 148; }
+    if (doc.y > H - 65) { np(CREAM); banner('\u26A0', 'Erreurs (suite)', ''); footer(); doc.y = 148; }
     const y = doc.y, ch = 40;
     doc.roundedRect(60, y, W - 120, ch, 5).fill(i % 2 === 0 ? WHITE : '#FFF8F8');
     doc.circle(81, y + ch / 2, 10).fill(RED);
     doc.fontSize(8.5).fillColor(WHITE).font('Helvetica-Bold').text((i+1).toString(), 74, y + ch/2 - 4, { width: 14, align: 'center' });
-    doc.fontSize(10).fillColor(DARK).font('Helvetica-Bold').text(t, 100, y + 6, { width: W - 190 });
+    doc.fontSize(10).fillColor(DARK).font('Helvetica-Bold').text('\u2717 ' + t, 100, y + 6, { width: W - 190 });
     doc.fontSize(9).fillColor(GRAY).font('Helvetica').text(d, 100, y + 21, { width: W - 190 });
     doc.y = y + ch + 4;
   });
 
   // ===== PAGE 14-15 : CALENDRIER =====
-  np(CREAM); banner('Chapitre 8', 'Plan d\u2019action 30 jours'); footer();
+  np(CREAM); banner('\u2611', 'Chapitre 8', 'Plan d\u2019action 30 jours'); footer();
   doc.y = 148;
   doc.fontSize(10).fillColor(GRAY).font('Helvetica')
     .text('Cochez chaque \u00e9tape accomplie. La r\u00e9gularit\u00e9 est la cl\u00e9 du succ\u00e8s !', 60, doc.y, { width: W - 120, lineGap: 3 });
   doc.moveDown(0.5);
-  weekH('SEMAINE 1 : Pr\u00e9paration');
+  weekH('SEMAINE 1 : Pr\u00e9paration', '\u{1F331}');
   ['Jour 1-3 : Nettoyage matin + soir + hydratant uniquement. Observez votre peau.',
    'Jour 4 : Ajoutez le s\u00e9rum vitamine C le matin.',
    'Jour 5 : Ajoutez la cr\u00e8me solaire SPF 30+ le matin.',
    'Jour 6 : Premi\u00e8re exfoliation douce le soir (AHA ou BHA).',
    'Jour 7 : Jour de repos \u2014 masque hydratant maison. \u00c9valuez.'].forEach(d => check(d));
   doc.moveDown(0.3);
-  weekH('SEMAINE 2 : Construction');
+  weekH('SEMAINE 2 : Construction', '\u{1F3D7}');
   ['Jour 8-10 : Routine de base + contour des yeux le soir.',
    'Jour 11 : Introduisez le r\u00e9tinol (faible dose) 1x cette semaine.',
    'Jour 12 : Deuxi\u00e8me exfoliation de la semaine.',
    'Jour 13 : Masque purifiant au charbon.',
    'Jour 14 : \u00c9valuez. Moins de brillance ? Plus d\u2019\u00e9clat ? Ajustez.'].forEach(d => check(d));
 
-  np(CREAM); banner('Calendrier (suite)', 'Semaines 3 et 4'); footer();
+  np(CREAM); banner('\u2611', 'Calendrier (suite)', 'Semaines 3 et 4'); footer();
   doc.y = 148;
-  weekH('SEMAINE 3 : Intensification');
+  weekH('SEMAINE 3 : Intensification', '\u{1F4AA}');
   ['Jour 15-17 : R\u00e9tinol 2x par semaine. Surveillez la tol\u00e9rance.',
    'Jour 18 : Essayez le double nettoyage le soir.',
    'Jour 19 : Masque \u00e9clat au miel et curcuma.',
    'Jour 20 : Augmentez la concentration vitamine C si tol\u00e9r\u00e9e.',
    'Jour 21 : Photo de progression ! Comparez avec le jour 1.'].forEach(d => check(d));
   doc.moveDown(0.3);
-  weekH('SEMAINE 4 : Transformation');
+  weekH('SEMAINE 4 : Transformation', '\u{1F31F}');
   ['Jour 22-25 : Routine compl\u00e8te install\u00e9e. Maintenez la r\u00e9gularit\u00e9.',
    'Jour 26 : Masque anti-\u00e2ge ou hydratant selon votre besoin.',
    'Jour 27 : \u00c9valuez vos r\u00e9sultats. Quels produits sont vos favoris ?',
    'Jour 28-29 : Affinez votre routine d\u00e9finitive.',
    'Jour 30 : Photo finale ! C\u00e9l\u00e9brez votre transformation !'].forEach(d => check(d));
   doc.moveDown(0.6);
-  tip('Prenez une photo de votre peau le Jour 1 et le Jour 30, m\u00eame \u00e9clairage. Vous serez impressionn\u00e9e !', '\u2605', LGOLD);
+  tip('Prenez une photo de votre peau le Jour 1 et le Jour 30, m\u00eame \u00e9clairage. Vous serez impressionn\u00e9e !', '\u{1F4F8}', LGOLD);
 
   // ===== PAGE 16 : FAQ =====
-  np(CREAM); banner('FAQ', 'Questions fr\u00e9quentes & conseils bonus'); footer();
+  np(CREAM); banner('\u2754', 'FAQ', 'Questions fr\u00e9quentes & conseils bonus'); footer();
   doc.y = 148;
   [['Combien de temps avant de voir des r\u00e9sultats ?','Premiers changements en 7-14 jours. R\u00e9sultats significatifs (taches, rides, texture) en 4-8 semaines avec une routine constante.'],
    ['Puis-je utiliser ces conseils si je suis enceinte ?','\u00c9vitez le r\u00e9tinol et les AHA/BHA forts. Consultez votre dermatologue. Le reste du guide est parfaitement compatible.'],
@@ -430,37 +451,46 @@ function generateGuide() {
    ['Comment savoir si un produit ne me convient pas ?','Test sur une petite zone 24h avant. Si rougeur ou irritation, arr\u00eatez. L\u00e9ger picotement avec AHA = normal.'],
    ['Le masque au citron est-il dangereux ?','Le citron pur est trop acide (pH 2). Dans nos recettes, il est dilu\u00e9 avec miel et blanc d\u2019\u0153uf. Ne jamais appliquer pur.']
   ].forEach(([q, a]) => {
-    if (doc.y > H - 100) { np(CREAM); banner('FAQ (suite)', ''); footer(); doc.y = 148; }
+    if (doc.y > H - 100) { np(CREAM); banner('\u2754', 'FAQ (suite)', ''); footer(); doc.y = 148; }
     const y = doc.y, ah = doc.heightOfString('R : ' + a, { width: W - 150, fontSize: 9.5 }), ch = ah + 35;
     doc.roundedRect(60, y, W - 120, ch, 5).fill(WHITE);
-    doc.fontSize(10.5).fillColor(DARK).font('Helvetica-Bold').text('Q :  ' + q, 72, y + 8, { width: W - 150 });
-    doc.fontSize(9.5).fillColor(GRAY).font('Helvetica').text('R :  ' + a, 72, y + 24, { width: W - 150, lineGap: 2 });
+    doc.fontSize(10.5).fillColor(DARK).font('Helvetica-Bold').text('\u2753 ' + q, 72, y + 8, { width: W - 150 });
+    doc.fontSize(9.5).fillColor(GRAY).font('Helvetica').text('\u2192 ' + a, 72, y + 24, { width: W - 150, lineGap: 2 });
     doc.y = y + ch + 6;
   });
 
   // ===== DERNIERE PAGE : MERCI =====
   np(DARK);
   doc.rect(45, 45, W - 90, 1.5).fill(GOLD);
-  doc.rect(45, H - 45, W - 90, 1.5).fill(GOLD);
-  [[45,45],[W-60,45],[45,H-60],[W-60,H-60]].forEach(([cx,cy]) => {
-    doc.rect(cx, cy, 15, 1.5).fill(GOLD); doc.rect(cx, cy, 1.5, 15).fill(GOLD);
-  });
-  doc.circle(W / 2, 220, 45).lineWidth(0.8).strokeColor(GOLD).stroke();
-  doc.fontSize(10).fillColor(GOLD).font('Helvetica').text('L U M E A', 0, 210, { align: 'center', characterSpacing: 5 });
-  doc.y = 310;
-  doc.fontSize(32).fillColor(WHITE).font('Helvetica-Bold').text('Merci !', { align: 'center' });
+  doc.rect(45, H - 46.5, W - 90, 1.5).fill(GOLD);
+  doc.rect(45, 45, 1.5, H - 90).fill('rgba(201,169,110,0.3)');
+  doc.rect(W - 46.5, 45, 1.5, H - 90).fill('rgba(201,169,110,0.3)');
+  corners();
+
+  // Small logo
+  doc.circle(W / 2, 200, 30).lineWidth(0.8).strokeColor(GOLD).stroke();
+  doc.fontSize(6).fillColor(GOLD).font('Helvetica').text('L U M E A', W / 2 - 25, 197, { width: 50, align: 'center', characterSpacing: 1.5 });
+
+  doc.fontSize(32).fillColor(WHITE).font('Helvetica-Bold').text('Merci !', 60, 280, { width: W - 120, align: 'center' });
   doc.moveDown(0.6);
-  doc.fontSize(14).fillColor(GOLD).font('Helvetica').text('Votre peau vous remerciera.', { align: 'center' });
+  doc.fontSize(14).fillColor(GOLD).font('Helvetica').text('Votre peau vous remerciera.', 60, 325, { width: W - 120, align: 'center' });
   doc.moveDown(0.3);
   doc.fontSize(11).fillColor('#BBB').font('Helvetica')
-    .text('Commencez d\u00e8s aujourd\u2019hui et prenez', { align: 'center' })
-    .text('votre photo du Jour 1 !', { align: 'center' });
-  doc.moveDown(2.5);
-  doc.fontSize(10).fillColor(GOLD).text('lumea-boutique.onrender.com', { align: 'center' });
+    .text('Commencez d\u00e8s aujourd\u2019hui et prenez', 60, 355, { width: W - 120, align: 'center' })
+    .text('votre photo du Jour 1 !', 60, 370, { width: W - 120, align: 'center' });
+
+  // Decorative line
+  doc.rect(W / 2 - 40, 400, 80, 1.5).fill(GOLD);
+  doc.circle(W / 2 - 48, 400.75, 2).fill(GOLD);
+  doc.circle(W / 2 + 48, 400.75, 2).fill(GOLD);
+
+  doc.fontSize(10).fillColor(GOLD)
+    .text('lumea-boutique.onrender.com', 60, 430, { width: W - 120, align: 'center', link: 'https://lumea-boutique.onrender.com', underline: true });
+
   doc.moveDown(1.5);
   doc.fontSize(8).fillColor('#555')
-    .text('Ce guide est prot\u00e9g\u00e9 par le droit d\u2019auteur. Toute reproduction est interdite.', { align: 'center' });
-  doc.text('\u00A9 2025 LUMEA Canada. Tous droits r\u00e9serv\u00e9s.', { align: 'center' });
+    .text('Ce guide est prot\u00e9g\u00e9 par le droit d\u2019auteur. Toute reproduction est interdite.', 60, 470, { width: W - 120, align: 'center' });
+  doc.text('\u00A9 2025 LUMEA Canada. Tous droits r\u00e9serv\u00e9s.', 60, 485, { width: W - 120, align: 'center' });
 
   doc.end();
   return new Promise((r, j) => { stream.on('finish', () => { console.log('Guide PDF generated:', outputPath); r(outputPath); }); stream.on('error', j); });
