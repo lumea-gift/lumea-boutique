@@ -36,7 +36,8 @@ function generateGuide() {
 
   function banner(title, sub) {
     doc.rect(0, 0, W, 130).fill(DARK);
-    headerDeco();
+    // Simple elegant line accent
+    doc.rect(W / 2 - 25, 115, 50, 1).fill('rgba(201,169,110,0.3)');
     doc.rect(0, 128, W, 3).fill(GOLD);
     doc.fontSize(9).fillColor(GOLD).font('Helvetica')
       .text('L U M E A', 0, 22, { align: 'center', characterSpacing: 5 });
@@ -105,11 +106,7 @@ function generateGuide() {
 
   // ===== PAGE 1 : COVER =====
   np(DARK);
-  // Deco circles
-  doc.circle(W / 2, 400, 250).lineWidth(0.3).strokeColor('rgba(201,169,110,0.08)').stroke();
-  doc.circle(W / 2, 400, 200).lineWidth(0.3).strokeColor('rgba(201,169,110,0.1)').stroke();
-  doc.circle(W / 2, 400, 150).lineWidth(0.3).strokeColor('rgba(201,169,110,0.12)').stroke();
-
+  // Clean elegant cover
   doc.rect(45, 45, W - 90, 1.5).fill(GOLD);
   doc.rect(45, H - 45, W - 90, 1.5).fill(GOLD);
   doc.rect(45, 45, 1.5, H - 90).fill('rgba(201,169,110,0.3)');
@@ -237,19 +234,6 @@ function generateGuide() {
   np(CREAM); banner('Chapitre 2', 'Routine du matin \u2014 5 \u00e9tapes en 5 minutes'); footer();
   doc.y = 145;
 
-  // Decorative morning illustration (vector)
-  doc.save();
-  doc.roundedRect(60, doc.y, W - 120, 55, 8).fill('#FFF8E8');
-  const sy = doc.y + 28;
-  [0,1,2,3,4].forEach(i => {
-    const cx = 120 + i * 95;
-    doc.roundedRect(cx - 15, sy - 18, 30, 36, 4).fill(i % 2 === 0 ? GOLD : '#E8D5B0');
-    doc.circle(cx, sy - 22, 5).fill(i % 2 === 0 ? '#E8D5B0' : GOLD);
-    doc.fontSize(7).fillColor(DARK).font('Helvetica').text((i+1).toString(), cx - 3, sy + 22);
-  });
-  doc.restore();
-  doc.y += 65;
-
   doc.fontSize(10).fillColor(GRAY).font('Helvetica')
     .text('Votre routine du matin prot\u00e8ge votre peau pour la journ\u00e9e. Simple, rapide, efficace.', 60, doc.y, { width: W - 120, lineGap: 3 });
   doc.moveDown(0.5);
@@ -264,20 +248,6 @@ function generateGuide() {
   // ===== PAGE 7 : ROUTINE SOIR =====
   np(CREAM); banner('Chapitre 3', 'Routine du soir \u2014 R\u00e9paration nocturne'); footer();
   doc.y = 145;
-
-  // Decorative night illustration (vector)
-  doc.roundedRect(60, doc.y, W - 120, 55, 8).fill('#1A1A2E');
-  const ny = doc.y + 28;
-  [0,1,2,3,4].forEach(i => {
-    const cx = 120 + i * 95;
-    doc.roundedRect(cx - 15, ny - 18, 30, 36, 4).fill(i % 2 === 0 ? '#2A2A4E' : '#3A3A5E');
-    doc.circle(cx, ny - 22, 5).fill(GOLD);
-    doc.fontSize(7).fillColor(GOLD).font('Helvetica').text((i+1).toString(), cx - 3, ny + 22);
-  });
-  // Moon
-  doc.circle(W - 95, ny - 10, 10).fill(GOLD);
-  doc.circle(W - 89, ny - 14, 8).fill('#1A1A2E');
-  doc.y += 65;
 
   doc.fontSize(10).fillColor(GRAY).font('Helvetica')
     .text('La nuit, votre peau se r\u00e9pare. C\u2019est le moment d\u2019utiliser vos actifs les plus puissants.', 60, doc.y, { width: W - 120, lineGap: 3 });
@@ -469,16 +439,13 @@ function generateGuide() {
 
   // ===== DERNIERE PAGE : MERCI =====
   np(DARK);
-  doc.circle(W / 2, 400, 250).lineWidth(0.3).strokeColor('rgba(201,169,110,0.08)').stroke();
-  doc.circle(W / 2, 400, 200).lineWidth(0.3).strokeColor('rgba(201,169,110,0.1)').stroke();
   doc.rect(45, 45, W - 90, 1.5).fill(GOLD);
   doc.rect(45, H - 45, W - 90, 1.5).fill(GOLD);
   [[45,45],[W-60,45],[45,H-60],[W-60,H-60]].forEach(([cx,cy]) => {
     doc.rect(cx, cy, 15, 1.5).fill(GOLD); doc.rect(cx, cy, 1.5, 15).fill(GOLD);
   });
-  doc.circle(W / 2, 220, 45).lineWidth(1).strokeColor(GOLD).stroke();
+  doc.circle(W / 2, 220, 45).lineWidth(0.8).strokeColor(GOLD).stroke();
   doc.fontSize(10).fillColor(GOLD).font('Helvetica').text('L U M E A', 0, 210, { align: 'center', characterSpacing: 5 });
-  doc.fontSize(7).fillColor('#888').text('S K I N C A R E', 0, 225, { align: 'center', characterSpacing: 3 });
   doc.y = 310;
   doc.fontSize(32).fillColor(WHITE).font('Helvetica-Bold').text('Merci !', { align: 'center' });
   doc.moveDown(0.6);
