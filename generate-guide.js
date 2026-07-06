@@ -111,9 +111,12 @@ function generateGuide() {
   doc.rect(45, H - 46.5, W - 90, 1.5).fill(GOLD);
   doc.rect(45, 45, 1.5, H - 90).fill('rgba(201,169,110,0.3)');
   doc.rect(W - 46.5, 45, 1.5, H - 90).fill('rgba(201,169,110,0.3)');
-  [[45,45],[W-60,45],[45,H-60],[W-60,H-60]].forEach(([cx,cy]) => {
-    doc.rect(cx, cy, 15, 1.5).fill(GOLD); doc.rect(cx, cy, 1.5, 15).fill(GOLD);
-  });
+  // Coins visibles aux 4 coins
+  const M = 45, cL = 20, cT = 2.5;
+  doc.rect(M, M, cL, cT).fill(GOLD); doc.rect(M, M, cT, cL).fill(GOLD);
+  doc.rect(W-M-cL, M, cL, cT).fill(GOLD); doc.rect(W-M-cT, M, cT, cL).fill(GOLD);
+  doc.rect(M, H-M-cT, cL, cT).fill(GOLD); doc.rect(M, H-M-cL, cT, cL).fill(GOLD);
+  doc.rect(W-M-cL, H-M-cT, cL, cT).fill(GOLD); doc.rect(W-M-cT, H-M-cL, cT, cL).fill(GOLD);
 
   doc.circle(W / 2, 195, 50).lineWidth(1).strokeColor(GOLD).stroke();
   doc.circle(W / 2, 195, 42).lineWidth(0.4).strokeColor('#555').stroke();
