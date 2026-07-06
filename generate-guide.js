@@ -121,24 +121,22 @@ function generateGuide() {
   doc.fontSize(7.5).fillColor('#888').text('S K I N C A R E', 0, 200, { align: 'center', characterSpacing: 4 });
 
   doc.y = 290;
-  doc.fontSize(28).fillColor(WHITE).font('Helvetica-Bold').text('Routine Peau', 60, doc.y, { width: W - 120, align: 'center' });
-  doc.fontSize(32).fillColor(GOLD).font('Helvetica-BoldOblique').text('Parfaite', 60, doc.y, { width: W - 120, align: 'center' });
-  doc.fontSize(28).fillColor(WHITE).font('Helvetica-Bold').text('30 Jours', 60, doc.y, { width: W - 120, align: 'center' });
+  doc.fontSize(28).fillColor(WHITE).font('Helvetica-Bold').text('Routine Peau', 60, 290, { width: W - 120, align: 'center' });
+  doc.fontSize(32).fillColor(GOLD).font('Helvetica-BoldOblique').text('Parfaite', 60, 325, { width: W - 120, align: 'center' });
+  doc.fontSize(28).fillColor(WHITE).font('Helvetica-Bold').text('30 Jours', 60, 365, { width: W - 120, align: 'center' });
 
-  doc.rect(W / 2 - 30, doc.y + 10, 60, 2).fill(GOLD);
-  doc.y += 28;
+  doc.rect(W / 2 - 30, 405, 60, 2).fill(GOLD);
   doc.fontSize(10).fillColor('#CCC').font('Helvetica')
-    .text('Le guide complet pour transformer', 60, doc.y, { width: W - 120, align: 'center' })
-    .text('votre peau en 30 jours', { width: W - 120, align: 'center' });
+    .text('Le guide complet pour transformer', 60, 420, { width: W - 120, align: 'center' })
+    .text('votre peau en 30 jours', 60, 434, { width: W - 120, align: 'center' });
 
-  doc.y += 20;
-  ['25+ Pages', 'Acces a vie', 'Quiz exclusif', '5 Masques DIY'].forEach((b, i) => {
-    const bx = 120 + i * 100;
-    doc.roundedRect(bx, doc.y, 85, 22, 11).strokeColor(GOLD).lineWidth(0.6).stroke();
-    doc.fontSize(8).fillColor(GOLD).font('Helvetica').text(b, bx, doc.y + 7, { width: 95, align: 'center' });
+  const badgeY = 465;
+  ['\u0041\u0063\u0063\u00e8s \u00e0 vie', 'Quiz exclusif', '5 Masques DIY'].forEach((b, i) => {
+    const bx = 145 + i * 115;
+    doc.roundedRect(bx, badgeY, 100, 24, 12).strokeColor(GOLD).lineWidth(0.6).stroke();
+    doc.fontSize(8.5).fillColor(GOLD).font('Helvetica').text(b, bx, badgeY + 7, { width: 100, align: 'center' });
   });
-  doc.y += 45;
-  doc.fontSize(9).fillColor(GOLD).text('Par les experts LUMEA  \u2022  \u00c9dition 2025  \u2022  Canada', { align: 'center' });
+  doc.fontSize(9).fillColor(GOLD).text('Par les experts LUMEA  \u2022  \u00c9dition 2025  \u2022  Canada', 60, 510, { width: W - 120, align: 'center' });
 
   // ===== PAGE 2 : TABLE DES MATI\u00c8RES =====
   np(CREAM); banner('Table des Mati\u00e8res', 'Votre parcours vers une peau parfaite'); footer();
