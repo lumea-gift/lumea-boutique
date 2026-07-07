@@ -41,7 +41,7 @@ function renderProducts() {
     var discount = Math.round((1 - p.price / p.oldPrice) * 100);
     return '<div class="product-card reveal" style="border-top:4px solid ' + p.color + '">' +
       '<div class="product-tag" style="background:' + p.color + '">' + p.tag + '</div>' +
-      '<div class="product-emoji">' + p.emoji + '</div>' +
+      '<div class="product-img"><img src="' + p.image + '" alt="' + p.name + '"></div>' +
       '<h3 class="product-name">' + p.name + '</h3>' +
       '<p class="product-subtitle">' + p.subtitle + '</p>' +
       '<div class="product-price"><span class="price-old">' + p.oldPrice.toFixed(2) + ' $</span><span class="price-current">' + p.price.toFixed(2) + ' $</span><span class="price-save">-' + discount + '%</span></div>' +
