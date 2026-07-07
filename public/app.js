@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         name: fd.get('name'), email: fd.get('email'), address: fd.get('address'),
-        city: fd.get('city'), province: fd.get('province'), postal: fd.get('postal'),
+        city: fd.get('city'), province: fd.get('province'), postal: fd.get('postal'), country: fd.get('country'),
         items: cart.map(function(c) { return { id: c.id, qty: c.qty }; })
       })
     }).then(function(r) { return r.json(); }).then(function(data) {
