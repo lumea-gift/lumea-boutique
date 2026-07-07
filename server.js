@@ -108,7 +108,7 @@ const PRODUCTS = [
     features: ['Skin type quiz', 'AM & PM routines', '5 DIY face masks', '30-day calendar'],
     tag: 'DIGITAL',
     emoji: '\uD83D\uDCD6',
-    image: '/images/skincare-guide.png',
+    image: '/images/skincare-guide.jpg',
     color: '#FFF3E0',
     type: 'digital'
   }
