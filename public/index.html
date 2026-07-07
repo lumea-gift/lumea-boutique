@@ -3,23 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LUMEA — Guide Routine Peau Parfaite 30 Jours</title>
-  <meta name="description" content="Transformez votre peau en 30 jours avec notre guide complet.">
+  <title>LUMEA — Boutique Skincare & Beaut&eacute; | Produits Viraux TikTok</title>
+  <meta name="description" content="Les produits skincare et beaut&eacute; les plus populaires de TikTok. Livraison au Canada. Guide skincare GRATUIT avec votre premi&egrave;re commande.">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#10022;</text></svg>">
 </head>
 <body>
+  <div class="promo-bar">GUIDE SKINCARE GRATUIT (valeur 27$) avec votre 1re commande !</div>
+
   <header class="header scrolled">
     <div class="container">
-      <a href="#" class="logo">LU<span>ME</span>A</a>
+      <a href="/" class="logo">LU<span>ME</span>A</a>
       <nav class="nav-links">
-        <a href="#produit">Le Guide</a>
-        <a href="#contenu">Contenu</a>
+        <a href="#produits">Produits</a>
+        <a href="#bonus">Guide Gratuit</a>
         <a href="#avis">Avis</a>
-        <a href="#faq">FAQ</a>
+        <a href="recommendations.html">Nos Recommandations</a>
       </nav>
       <div class="nav-actions">
-        <a href="#produit" class="btn btn-primary btn-sm">Acheter 27$</a>
+        <button class="btn btn-primary btn-sm cart-btn" id="cartBtn">Panier (<span id="cartCount">0</span>)</button>
         <button class="menu-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
       </div>
     </div>
@@ -27,41 +29,45 @@
 
   <section class="hero" id="accueil">
     <div class="hero-content">
-      <div class="hero-badge">Guide Digital PDF</div>
-      <h1>Routine Peau <em>Parfaite</em> en 30 Jours</h1>
-      <p>Le guide complet pour transformer votre peau. Routines, ingredients, recettes masques maison et plan d'action jour par jour.</p>
-      <div class="hero-price">
-        <span class="price-old">67 $</span>
-        <span class="price-current">27 $</span>
-        <span class="price-save">-60%</span>
-      </div>
+      <div class="hero-badge">Produits Viraux TikTok 2025</div>
+      <h1>Les produits <em>skincare</em> que tout le monde s'arrache</h1>
+      <p>Selectionnes parmi les best-sellers TikTok avec des millions de ventes. Livraison au Canada. Guide Routine Peau Parfaite GRATUIT avec votre 1re commande.</p>
       <div class="hero-actions">
-        <a href="#produit" class="btn btn-primary btn-lg pulse-btn">Obtenir le Guide — 27$</a>
+        <a href="#produits" class="btn btn-primary btn-lg pulse-btn">Voir les produits</a>
       </div>
       <div class="hero-trust">
-        <span>Telechargement instantane</span><span>|</span>
-        <span>Paiement securise</span><span>|</span>
-        <span>Acces a vie</span>
+        <span>Livraison au Canada</span><span>|</span>
+        <span>Paiement s&eacute;curis&eacute;</span><span>|</span>
+        <span>Guide GRATUIT</span>
       </div>
     </div>
   </section>
 
-  <section class="section problem-section">
+  <section class="section" id="produits">
     <div class="container">
       <div class="section-header reveal">
-        <span class="section-label">Le probleme</span>
-        <h2 class="section-title">Vous en avez marre de...</h2>
+        <span class="section-label">Boutique</span>
+        <h2 class="section-title">Nos produits viraux</h2>
+        <p class="section-sub">Les best-sellers TikTok avec des millions de ventes. Livraison 7-15 jours.</p>
       </div>
-      <div class="problems-grid">
-        <div class="problem-card reveal"><div class="problem-icon">&#10060;</div><p>Depenser des centaines de dollars en produits qui ne fonctionnent pas</p></div>
-        <div class="problem-card reveal"><div class="problem-icon">&#10060;</div><p>Ne pas savoir quels ingredients chercher (et lesquels eviter)</p></div>
-        <div class="problem-card reveal"><div class="problem-icon">&#10060;</div><p>Avoir une peau terne, seche ou acneique malgre vos efforts</p></div>
-        <div class="problem-card reveal"><div class="problem-icon">&#10060;</div><p>Changer de routine chaque mois sans voir de resultats</p></div>
+      <div class="products-grid" id="productsGrid">
+        <!-- Filled by JS -->
       </div>
     </div>
   </section>
 
-  <section class="section solution-section" id="produit">
+  <section class="section stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card reveal"><h3>46M+</h3><p>Ventes TikTok de nos produits</p></div>
+        <div class="stat-card reveal"><h3>15K+</h3><p>Clients satisfaits</p></div>
+        <div class="stat-card reveal"><h3>4.8/5</h3><p>Note moyenne</p></div>
+        <div class="stat-card reveal"><h3>7-15j</h3><p>Livraison Canada</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section solution-section" id="bonus">
     <div class="container">
       <div class="solution-grid">
         <div class="solution-visual reveal">
@@ -72,51 +78,22 @@
               <span class="guide-subtitle">Guide Complet</span>
             </div>
           </div>
-          <div class="guide-format"><span>PDF</span><span>25+ pages</span><span>Acces a vie</span></div>
+          <div class="guide-format"><span>PDF</span><span>22 pages</span><span>Acc&egrave;s &agrave; vie</span></div>
         </div>
         <div class="solution-content reveal">
-          <span class="section-label">La solution</span>
-          <h2 class="section-title">Tout ce dont vous avez besoin en un seul guide</h2>
-          <p class="solution-desc">Plus besoin de chercher pendant des heures sur Internet. Ce guide reunit tout : la methode, les produits, les recettes et le plan d'action.</p>
-          <div class="solution-price-box">
-            <div class="price-compare"><span class="price-label">Prix regulier</span><span class="price-crossed">67 $</span></div>
-            <div class="price-now"><span class="price-label">Aujourd'hui seulement</span><span class="price-big">27 <small>$ CAD</small></span></div>
+          <span class="section-label">Bonus exclusif</span>
+          <h2 class="section-title">Guide Routine Peau Parfaite 30 Jours</h2>
+          <p class="solution-desc">Avec votre premi&egrave;re commande, recevez GRATUITEMENT notre guide complet (valeur 27$) : quiz type de peau, routines matin/soir, 5 masques maison, calendrier 30 jours, recommandations produits et plus encore.</p>
+          <div class="bonus-features">
+            <div class="bf">&#10003; Quiz exclusif type de peau</div>
+            <div class="bf">&#10003; Routines matin et soir</div>
+            <div class="bf">&#10003; 8 ingr&eacute;dients miracles</div>
+            <div class="bf">&#10003; 5 recettes masques maison</div>
+            <div class="bf">&#10003; Calendrier 30 jours</div>
+            <div class="bf">&#10003; Guide compatibilit&eacute; actifs</div>
           </div>
-          <form class="buy-form" id="buyForm">
-            <input type="text" name="name" placeholder="Votre prenom" required>
-            <input type="email" name="email" placeholder="Votre email (pour recevoir le guide)" required>
-            <button type="submit" class="btn btn-primary btn-lg btn-full" id="buyBtn">Telecharger le Guide — 27$</button>
-            <p class="buy-secure">Paiement securise par Stripe | Telechargement immediat apres paiement</p>
-          </form>
+          <p class="bonus-note">Automatiquement inclus avec votre 1re commande !</p>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section content-section" id="contenu">
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="section-label">Dans le guide</span>
-        <h2 class="section-title">Ce que vous allez recevoir</h2>
-      </div>
-      <div class="content-grid">
-        <div class="content-card reveal"><div class="content-num">01</div><h4>Routine Matin</h4><p>5 etapes simples pour proteger et illuminer votre peau chaque matin</p></div>
-        <div class="content-card reveal"><div class="content-num">02</div><h4>Routine Soir</h4><p>La methode du double nettoyage et les actifs puissants pour la nuit</p></div>
-        <div class="content-card reveal"><div class="content-num">03</div><h4>Ingredients Miracles</h4><p>Les 8 actifs prouves scientifiquement et comment les utiliser</p></div>
-        <div class="content-card reveal"><div class="content-num">04</div><h4>5 Masques Maison</h4><p>Des recettes avec des ingredients de votre cuisine</p></div>
-        <div class="content-card reveal"><div class="content-num">05</div><h4>Alimentation Beaute</h4><p>Les aliments qui donnent un teint eclatant (et ceux a eviter)</p></div>
-        <div class="content-card reveal"><div class="content-num">06</div><h4>Calendrier 30 Jours</h4><p>Plan d'action jour par jour. Cochez et suivez vos progres</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section stats-section">
-    <div class="container">
-      <div class="stats-grid">
-        <div class="stat-card reveal"><h3>15,000+</h3><p>Guides telecharges</p></div>
-        <div class="stat-card reveal"><h3>98%</h3><p>Satisfaction</p></div>
-        <div class="stat-card reveal"><h3>30</h3><p>Jours pour des resultats</p></div>
-        <div class="stat-card reveal"><h3>25+</h3><p>Pages de contenu</p></div>
       </div>
     </div>
   </section>
@@ -124,23 +101,23 @@
   <section class="section testimonials-section" id="avis">
     <div class="container">
       <div class="section-header reveal">
-        <span class="section-label">Temoignages</span>
-        <h2 class="section-title">Ce qu'elles en disent</h2>
+        <span class="section-label">Avis clients</span>
+        <h2 class="section-title">Ce qu'ils en disent</h2>
       </div>
       <div class="testimonials-grid">
         <div class="testimonial-card reveal">
           <div class="stars"><span>&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
-          <p class="testimonial-text">"Ce guide a completement change ma routine. En 2 semaines, mon teint etait deja plus lumineux !"</p>
-          <div class="testimonial-author"><div class="author-avatar">SC</div><div class="author-info"><h5>Sophie C.</h5><span>Montreal, QC</span></div></div>
+          <p class="testimonial-text">"Le Ice Bath Bowl c'est incroyable ! Mes poches du matin ont disparu en 3 jours. Et le guide gratuit est un vrai bonus."</p>
+          <div class="testimonial-author"><div class="author-avatar">SC</div><div class="author-info"><h5>Sophie C.</h5><span>Montr&eacute;al, QC</span></div></div>
         </div>
         <div class="testimonial-card reveal">
           <div class="stars"><span>&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
-          <p class="testimonial-text">"J'ai enfin compris pourquoi mes produits ne fonctionnaient pas. Le chapitre sur les ingredients est une mine d'or."</p>
-          <div class="testimonial-author"><div class="author-avatar">ML</div><div class="author-info"><h5>Marie L.</h5><span>Quebec, QC</span></div></div>
+          <p class="testimonial-text">"J'ai commande le Lip Liner apres l'avoir vu sur TikTok. Tenue 12h, je suis fan ! Livraison rapide au Canada."</p>
+          <div class="testimonial-author"><div class="author-avatar">ML</div><div class="author-info"><h5>Marie L.</h5><span>Qu&eacute;bec, QC</span></div></div>
         </div>
         <div class="testimonial-card reveal">
           <div class="stars"><span>&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
-          <p class="testimonial-text">"Le calendrier 30 jours est genial. Ma peau n'a jamais ete aussi belle et je n'ai depense que 27$ !"</p>
+          <p class="testimonial-text">"La brosse auto-nettoyante a change ma vie. Plus de cheveux coinces ! Et la silicone face brush est top pour le nettoyage."</p>
           <div class="testimonial-author"><div class="author-avatar">AB</div><div class="author-info"><h5>Amira B.</h5><span>Toronto, ON</span></div></div>
         </div>
       </div>
@@ -151,14 +128,14 @@
     <div class="container">
       <div class="section-header reveal">
         <span class="section-label">FAQ</span>
-        <h2 class="section-title">Questions frequentes</h2>
+        <h2 class="section-title">Questions fr&eacute;quentes</h2>
       </div>
       <div class="faq-list">
-        <div class="faq-item reveal"><button class="faq-question">Comment je recois le guide ?</button><div class="faq-answer"><p>Immediatement apres le paiement, vous serez redirigee vers une page de telechargement. Le guide est au format PDF.</p></div></div>
-        <div class="faq-item reveal"><button class="faq-question">C'est adapte a mon type de peau ?</button><div class="faq-answer"><p>Oui ! Le guide couvre les 5 types de peau avec des recommandations specifiques pour chaque type.</p></div></div>
-        <div class="faq-item reveal"><button class="faq-question">Dois-je acheter des produits chers ?</button><div class="faq-answer"><p>Non ! Le guide vous apprend a choisir des produits efficaces a tous les prix. Vous pouvez meme faire vos propres masques.</p></div></div>
-        <div class="faq-item reveal"><button class="faq-question">Combien de temps pour voir des resultats ?</button><div class="faq-answer"><p>Les premiers changements en 7-14 jours. Des resultats significatifs en 30 jours.</p></div></div>
-        <div class="faq-item reveal"><button class="faq-question">Le paiement est-il securise ?</button><div class="faq-answer"><p>Absolument. Le paiement est traite par Stripe, le meme systeme utilise par Amazon et Shopify.</p></div></div>
+        <div class="faq-item reveal"><button class="faq-question">Combien de temps pour la livraison ?</button><div class="faq-answer"><p>Livraison en 7 &agrave; 15 jours ouvrables au Canada. Vous recevrez un num&eacute;ro de suivi par email.</p></div></div>
+        <div class="faq-item reveal"><button class="faq-question">Comment je recois le guide gratuit ?</button><div class="faq-answer"><p>Apr&egrave;s votre premi&egrave;re commande, un lien de t&eacute;l&eacute;chargement appara&icirc;t sur la page de confirmation. Le guide est en format PDF.</p></div></div>
+        <div class="faq-item reveal"><button class="faq-question">Le paiement est s&eacute;curis&eacute; ?</button><div class="faq-answer"><p>Oui, tous les paiements sont trait&eacute;s par Stripe, le m&ecirc;me syst&egrave;me utilis&eacute; par Amazon et Shopify.</p></div></div>
+        <div class="faq-item reveal"><button class="faq-question">Puis-je retourner un produit ?</button><div class="faq-answer"><p>Oui, vous avez 30 jours pour retourner un produit non utilis&eacute;. Contactez-nous par email.</p></div></div>
+        <div class="faq-item reveal"><button class="faq-question">Livrez-vous partout au Canada ?</button><div class="faq-answer"><p>Oui, nous livrons dans toutes les provinces et territoires du Canada.</p></div></div>
       </div>
     </div>
   </section>
@@ -166,11 +143,9 @@
   <section class="section cta-section">
     <div class="container">
       <div class="cta-content reveal">
-        <h2>Prete a transformer votre peau ?</h2>
-        <p>Rejoignez 15 000+ femmes qui ont deja leur guide</p>
-        <div class="hero-price"><span class="price-old">67 $</span><span class="price-current">27 $</span><span class="price-save">-60%</span></div>
-        <a href="#produit" class="btn btn-primary btn-lg pulse-btn">Obtenir le Guide — 27$</a>
-        <p class="cta-sub">Telechargement instantane | Acces a vie | Paiement securise</p>
+        <h2>Pr&ecirc;te &agrave; d&eacute;couvrir les produits viraux ?</h2>
+        <p>+ Guide Routine Peau Parfaite GRATUIT (valeur 27$) avec votre 1re commande</p>
+        <a href="#produits" class="btn btn-primary btn-lg pulse-btn">Voir les produits</a>
       </div>
     </div>
   </section>
@@ -178,16 +153,48 @@
   <footer class="footer">
     <div class="container">
       <div class="footer-simple">
-        <a href="#" class="logo">LU<span>ME</span>A</a>
-        <p>&copy; 2025 LUMEA Canada. Tous droits reserves.</p>
+        <a href="/" class="logo">LU<span>ME</span>A</a>
+        <p>&copy; 2025 LUMEA Canada. Tous droits r&eacute;serv&eacute;s.</p>
         <div class="footer-payments"><span>Visa</span><span>Mastercard</span><span>Apple Pay</span></div>
       </div>
     </div>
   </footer>
 
-  <div class="notification" id="notification">
-    <span class="notification-icon">&#10003;</span>
-    <div class="notification-text"><strong>Merci !</strong><span></span></div>
+  <!-- Cart Drawer -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <h3>Votre panier</h3>
+      <button class="cart-close" id="cartClose">&times;</button>
+    </div>
+    <div class="cart-body" id="cartItems"></div>
+    <div class="cart-footer" id="cartFooter" style="display:none">
+      <div class="cart-total"><span>Total</span><span id="cartTotal">0.00</span></div>
+      <div class="cart-bonus">+ Guide GRATUIT avec votre 1re commande !</div>
+      <button class="btn btn-primary btn-lg btn-full" id="checkoutBtn">Commander</button>
+    </div>
+  </div>
+
+  <!-- Checkout Modal -->
+  <div class="checkout-modal" id="checkoutModal">
+    <div class="checkout-box">
+      <span class="modal-close" id="modalClose">&times;</span>
+      <h2>Finaliser la commande</h2>
+      <div id="checkoutSummary"></div>
+      <form id="checkoutForm" class="checkout-form">
+        <h3>Informations de livraison</h3>
+        <div class="form-row full"><input type="text" name="name" placeholder="Nom complet" required></div>
+        <div class="form-row full"><input type="email" name="email" placeholder="Email" required></div>
+        <div class="form-row full"><input type="text" name="address" placeholder="Adresse de livraison" required></div>
+        <div class="form-row">
+          <input type="text" name="city" placeholder="Ville" required>
+          <input type="text" name="province" placeholder="Province (ex: QC)" required>
+        </div>
+        <div class="form-row full"><input type="text" name="postal" placeholder="Code postal" required></div>
+        <button type="submit" class="btn btn-primary btn-lg btn-full pay-btn" id="payBtn">Payer maintenant</button>
+        <p class="pay-secure">Paiement s&eacute;curis&eacute; par Stripe | Livraison 7-15 jours</p>
+      </form>
+    </div>
   </div>
 
   <script src="app.js"></script>
