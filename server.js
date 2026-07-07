@@ -30,7 +30,7 @@ const PRODUCTS = [
     features: ['R\u00e9duit poches et gonflements', 'Resserre les pores en 3 min', 'Silicone BPA-free pliable', 'Moule \u00e0 glace int\u00e9gr\u00e9'],
     tag: 'VIRAL TIKTOK',
     emoji: '\u2744\uFE0F',
-    image: 'https://m.media-amazon.com/images/I/711A+o3zawL._SX425_.jpg',
+    image: '/images/ice-bath-bowl.jpg',
     color: '#E3F2FD'
   },
   {
@@ -43,7 +43,7 @@ const PRODUCTS = [
     features: ['Tenue 12h+ waterproof', 'Peel-off sans transfert', '1 vendu / 5 sec sur TikTok', 'Technologie Wonder Blading'],
     tag: '#1 TIKTOK',
     emoji: '\uD83D\uDC8B',
-    image: 'https://m.media-amazon.com/images/I/61N9kkGSb0L._SX425_.jpg',
+    image: '/images/wonderskin.jpg',
     color: '#FCE4EC'
   },
   {
@@ -56,7 +56,7 @@ const PRODUCTS = [
     features: ['Tenue 12h+ sans transfert', 'Effet naturel et peel-off', '6 teintes disponibles', '46M de ventes TikTok'],
     tag: '#1 TIKTOK',
     emoji: '\uD83D\uDC8B',
-    image: 'https://m.media-amazon.com/images/I/61YQwUKJURL._SX425_.jpg',
+    image: '/images/lip-liner.png',
     color: '#FCE4EC'
   },
   {
@@ -69,7 +69,7 @@ const PRODUCTS = [
     features: ['Effet tenseur en 7 jours', 'Peptides + acide hyaluronique', 'Zone cou et d\u00e9collet\u00e9', '32M de ventes TikTok'],
     tag: 'ANTI-\u00c2GE',
     emoji: '\u2B50',
-    image: 'https://m.media-amazon.com/images/I/71kQx+GKXRL._SX425_.jpg',
+    image: '/images/neck-cream.png',
     color: '#FFF8E1'
   },
   {
@@ -82,7 +82,7 @@ const PRODUCTS = [
     features: ['Hydratation +204% prouv\u00e9e', 'Glass skin au r\u00e9veil', '42K+ avis Amazon 4.5\u2605', '8K+ vendus par mois'],
     tag: 'GLASS SKIN',
     emoji: '\u2728',
-    image: 'https://m.media-amazon.com/images/I/61MJnCLGiWL._SX425_.jpg',
+    image: '/images/biodance.jpg',
     color: '#E8F5E9'
   },
   {
@@ -95,7 +95,7 @@ const PRODUCTS = [
     features: ['Triple collag\u00e8ne + niacinamide', 'Effet glass glow instantan\u00e9', 'Formul\u00e9 par dermatologues', 'Top marque K-beauty TikTok'],
     tag: 'K-BEAUTY',
     emoji: '\uD83E\uDDF4',
-    image: 'https://m.media-amazon.com/images/I/61qhBz6RGRL._SX425_.jpg',
+    image: '/images/medicube.jpg',
     color: '#F3E5F5'
   }
 ];
