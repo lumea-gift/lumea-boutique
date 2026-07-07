@@ -34,17 +34,17 @@ const PRODUCTS = [
     color: '#E3F2FD'
   },
   {
-    id: 'silicone-brush',
-    name: '2-in-1 Silicone Face Brush',
-    subtitle: 'Nettoyage profond + exfoliation douce',
-    price: 17.99,
-    oldPrice: 34.99,
-    description: 'Brosse faciale double face en silicone. C\u00f4t\u00e9 nettoyage profond + c\u00f4t\u00e9 exfoliation douce. Anti-bact\u00e9rienne, r\u00e9utilisable et \u00e9co-friendly. Compatible avec tous les nettoyants.',
-    features: ['Double face : nettoyage + exfoliation', 'Silicone anti-bact\u00e9rien', '\u00c9co-friendly et r\u00e9utilisable', 'Pour tous types de peau'],
-    tag: 'BEST SELLER',
-    emoji: '\u2728',
-    image: 'https://m.media-amazon.com/images/I/41lw073VjAL._SX425_.jpg',
-    color: '#F3E5F5'
+    id: 'wonderskin-lip-stain',
+    name: 'Wonderskin Lip Stain Peel-Off',
+    subtitle: '1 vendu toutes les 5 secondes sur TikTok',
+    price: 24.99,
+    oldPrice: 39.99,
+    description: 'Le lip stain viral qui a explos\u00e9 sur TikTok ! Appliquez le masque, laissez s\u00e9cher, pelez \u2014 r\u00e9v\u00e9lez une couleur longue tenue 12h+ waterproof et sans transfert. La technologie Wonder Blading pour des l\u00e8vres parfaites.',
+    features: ['Tenue 12h+ waterproof', 'Peel-off sans transfert', '1 vendu / 5 sec sur TikTok', 'Technologie Wonder Blading'],
+    tag: '#1 TIKTOK',
+    emoji: '\uD83D\uDC8B',
+    image: 'https://m.media-amazon.com/images/I/61N9kkGSb0L._SX425_.jpg',
+    color: '#FCE4EC'
   },
   {
     id: 'lip-liner-peel',
@@ -73,30 +73,30 @@ const PRODUCTS = [
     color: '#FFF8E1'
   },
   {
-    id: 'scent-necklace',
-    name: 'Collier Diffuseur de Parfum',
-    subtitle: 'Votre parfum toute la journ\u00e9e',
-    price: 14.99,
-    oldPrice: 29.99,
-    description: 'Collier \u00e9l\u00e9gant avec diffuseur de parfum int\u00e9gr\u00e9. Ajoutez quelques gouttes de votre parfum pr\u00e9f\u00e9r\u00e9 et profitez d\u2019un parfum subtil toute la journ\u00e9e. Cadeau id\u00e9al.',
-    features: ['Diffuse votre parfum 24h', 'Design \u00e9l\u00e9gant et discret', 'Compatible tous parfums', 'Id\u00e9e cadeau parfaite'],
-    tag: 'CADEAU ID\u00c9AL',
-    emoji: '\uD83C\uDF38',
-    image: 'https://m.media-amazon.com/images/I/614CfwDTasL._SX425_.jpg',
-    color: '#F1F8E9'
+    id: 'biodance-collagen-mask',
+    name: 'Biodance Collagen Deep Mask',
+    subtitle: 'Le masque viral #1 Korean skincare',
+    price: 22.99,
+    oldPrice: 39.99,
+    description: 'Le masque hydrogel au collag\u00e8ne qui a conquis TikTok ! Hydratation +204%, pores r\u00e9duits -83%, \u00e9clat +20%. Pose de nuit pour un effet glass skin au r\u00e9veil. 42K+ avis 4.5 \u00e9toiles sur Amazon.',
+    features: ['Hydratation +204% prouv\u00e9e', 'Glass skin au r\u00e9veil', '42K+ avis Amazon 4.5\u2605', '8K+ vendus par mois'],
+    tag: 'GLASS SKIN',
+    emoji: '\u2728',
+    image: 'https://m.media-amazon.com/images/I/61MJnCLGiWL._SX425_.jpg',
+    color: '#E8F5E9'
   },
   {
-    id: 'self-clean-brush',
-    name: 'Brosse Cheveux Auto-Nettoyante',
-    subtitle: 'Un clic pour la nettoyer',
+    id: 'medicube-glow-serum',
+    name: 'Medicube Glass Glow Serum',
+    subtitle: 'Le s\u00e9rum K-beauty #1 TikTok',
     price: 19.99,
-    oldPrice: 39.99,
-    description: 'Brosse \u00e0 cheveux avec bouton auto-nettoyant. Un clic et tous les cheveux sont \u00e9ject\u00e9s. Coussin d\u2019air pour massage du cuir chevelu. Anti-statique pour des cheveux lisses et brillants.',
-    features: ['Nettoyage en 1 clic', 'Massage du cuir chevelu', 'Anti-statique anti-frizz', 'Evergreen best-seller'],
-    tag: 'PRATIQUE',
-    emoji: '\uD83D\uDC87',
-    image: 'https://m.media-amazon.com/images/I/51W8r02t8GL._SX425_.jpg',
-    color: '#E8F5E9'
+    oldPrice: 34.99,
+    description: 'S\u00e9rum au triple collag\u00e8ne + niacinamide + acide hyaluronique pour un \u00e9clat glass skin instantan\u00e9. Formul\u00e9 avec des dermatologues. La marque K-beauty la plus virale de 2025.',
+    features: ['Triple collag\u00e8ne + niacinamide', 'Effet glass glow instantan\u00e9', 'Formul\u00e9 par dermatologues', 'Top marque K-beauty TikTok'],
+    tag: 'K-BEAUTY',
+    emoji: '\uD83E\uDDF4',
+    image: 'https://m.media-amazon.com/images/I/61qhBz6RGRL._SX425_.jpg',
+    color: '#F3E5F5'
   }
 ];
 
