@@ -39,13 +39,17 @@ function renderProducts() {
   if (!grid) return;
   grid.innerHTML = allProducts.map(function(p) {
     var discount = Math.round((1 - p.price / p.oldPrice) * 100);
+    var imgHtml = p.image
+      ? '<div class="product-img"><img src="' + p.image + '" alt="' + p.name + '"></div>'
+      : '<div class="product-img product-img-emoji">' + p.emoji + '</div>';
     return '<div class="product-card reveal" style="border-top:4px solid ' + p.color + '">' +
       '<div class="product-tag" style="background:' + p.color + '">' + p.tag + '</div>' +
-      '<div class="product-img"><img src="' + p.image + '" alt="' + p.name + '"></div>' +
+      imgHtml +
       '<h3 class="product-name">' + p.name + '</h3>' +
       '<p class="product-subtitle">' + p.subtitle + '</p>' +
       '<div class="product-price"><span class="price-old">' + p.oldPrice.toFixed(2) + ' $</span><span class="price-current">' + p.price.toFixed(2) + ' $</span><span class="price-save">-' + discount + '%</span></div>' +
       '<ul class="product-features">' + p.features.map(function(f) { return '<li>&#10003; ' + f + '</li>'; }).join('') + '</ul>' +
+      (p.type === 'digital' ? '<p class="digital-note">Instant PDF download after purchase</p>' : '') +
       '<button class="btn btn-primary btn-full add-cart-btn" onclick="addToCart(\'' + p.id + '\')">Add to Cart</button>' +
     '</div>';
   }).join('');
@@ -103,6 +107,27 @@ function closeCart() {
 function openCheckout() {
   closeCart();
   document.getElementById('checkoutModal').style.display = 'flex';
+
+  // Check if cart has physical items
+  var hasPhysical = cart.some(function(c) {
+    var p = allProducts.find(function(x) { return x.id === c.id; });
+    return p && p.type !== 'digital';
+  });
+
+  // Show/hide shipping fields
+  var shippingTitle = document.getElementById('shippingTitle');
+  var shippingFields = document.getElementById('shippingFields');
+  var paySecure = document.getElementById('paySecure');
+  if (shippingTitle) shippingTitle.style.display = hasPhysical ? '' : 'none';
+  if (shippingFields) {
+    shippingFields.style.display = hasPhysical ? '' : 'none';
+    shippingFields.querySelectorAll('input').forEach(function(input) {
+      if (hasPhysical) input.setAttribute('required', '');
+      else input.removeAttribute('required');
+    });
+  }
+  if (paySecure) paySecure.textContent = hasPhysical ? 'Secured by Stripe | 7-15 day shipping' : 'Secured by Stripe | Instant PDF download';
+
   var summary = document.getElementById('checkoutSummary');
   var total = 0;
   summary.innerHTML = '<h4>Order Summary</h4>' + cart.map(function(c) {
@@ -112,7 +137,7 @@ function openCheckout() {
     return '<div class="summary-line"><span>' + p.name + ' x' + c.qty + '</span><span>' + st.toFixed(2) + ' $</span></div>';
   }).join('') +
   '<div class="summary-line summary-total"><span>Total</span><span>' + total.toFixed(2) + ' $ CAD</span></div>' +
-  '<div class="summary-bonus">+ FREE Perfect Skin Routine Guide!</div>';
+  (hasPhysical ? '<div class="summary-bonus">+ FREE Perfect Skin Routine Guide!</div>' : '');
 }
 
 // ==================== INIT ====================
