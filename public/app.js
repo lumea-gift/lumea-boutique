@@ -46,7 +46,7 @@ function renderProducts() {
       '<p class="product-subtitle">' + p.subtitle + '</p>' +
       '<div class="product-price"><span class="price-old">' + p.oldPrice.toFixed(2) + ' $</span><span class="price-current">' + p.price.toFixed(2) + ' $</span><span class="price-save">-' + discount + '%</span></div>' +
       '<ul class="product-features">' + p.features.map(function(f) { return '<li>&#10003; ' + f + '</li>'; }).join('') + '</ul>' +
-      '<button class="btn btn-primary btn-full add-cart-btn" onclick="addToCart(\'' + p.id + '\')">Ajouter au panier</button>' +
+      '<button class="btn btn-primary btn-full add-cart-btn" onclick="addToCart(\'' + p.id + '\')">Add to Cart</button>' +
     '</div>';
   }).join('');
   initReveal();
@@ -65,7 +65,7 @@ function updateCartUI() {
 
   if (!itemsEl) return;
   if (cart.length === 0) {
-    itemsEl.innerHTML = '<div class="cart-empty"><p>Votre panier est vide</p><a href="#produits" class="btn btn-primary" onclick="closeCart()">Voir les produits</a></div>';
+    itemsEl.innerHTML = '<div class="cart-empty"><p>Your cart is empty</p><a href="#products" class="btn btn-primary" onclick="closeCart()">Shop Now</a></div>';
     if (footerEl) footerEl.style.display = 'none';
     return;
   }
@@ -105,14 +105,14 @@ function openCheckout() {
   document.getElementById('checkoutModal').style.display = 'flex';
   var summary = document.getElementById('checkoutSummary');
   var total = 0;
-  summary.innerHTML = '<h4>Resume de la commande</h4>' + cart.map(function(c) {
+  summary.innerHTML = '<h4>Order Summary</h4>' + cart.map(function(c) {
     var p = allProducts.find(function(x) { return x.id === c.id; });
     if (!p) return '';
     var st = p.price * c.qty; total += st;
     return '<div class="summary-line"><span>' + p.name + ' x' + c.qty + '</span><span>' + st.toFixed(2) + ' $</span></div>';
   }).join('') +
   '<div class="summary-line summary-total"><span>Total</span><span>' + total.toFixed(2) + ' $ CAD</span></div>' +
-  '<div class="summary-bonus">+ Guide Routine Peau Parfaite GRATUIT !</div>';
+  '<div class="summary-bonus">+ FREE Perfect Skin Routine Guide!</div>';
 }
 
 // ==================== INIT ====================
@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
   if (form) form.addEventListener('submit', function(e) {
     e.preventDefault();
     var btn = document.getElementById('payBtn');
-    btn.disabled = true; btn.textContent = 'Traitement...';
+    btn.disabled = true; btn.textContent = 'Processing...';
     var fd = new FormData(form);
     fetch('/api/checkout', {
       method: 'POST',
@@ -146,8 +146,8 @@ document.addEventListener('DOMContentLoaded', function() {
       })
     }).then(function(r) { return r.json(); }).then(function(data) {
       if (data.url) { cart = []; saveCart(); window.location.href = data.url; }
-      else { alert(data.error || 'Erreur'); btn.disabled = false; btn.textContent = 'Payer maintenant'; }
-    }).catch(function() { alert('Erreur de connexion'); btn.disabled = false; btn.textContent = 'Payer maintenant'; });
+      else { alert(data.error || 'Error'); btn.disabled = false; btn.textContent = 'Pay Now'; }
+    }).catch(function() { alert('Connection error'); btn.disabled = false; btn.textContent = 'Pay Now'; });
   });
 
   document.querySelectorAll('.faq-question').forEach(function(btn) {
