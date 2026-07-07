@@ -182,17 +182,19 @@
       <h2>Complete Your Order</h2>
       <div id="checkoutSummary"></div>
       <form id="checkoutForm" class="checkout-form">
-        <h3>Shipping Information</h3>
+        <h3 id="shippingTitle">Shipping Information</h3>
         <div class="form-row full"><input type="text" name="name" placeholder="Full Name" required></div>
         <div class="form-row full"><input type="email" name="email" placeholder="Email" required></div>
-        <div class="form-row full"><input type="text" name="address" placeholder="Shipping Address" required></div>
-        <div class="form-row">
-          <input type="text" name="city" placeholder="City" required>
-          <input type="text" name="province" placeholder="Province (e.g. ON)" required>
+        <div id="shippingFields">
+          <div class="form-row full"><input type="text" name="address" placeholder="Shipping Address" required></div>
+          <div class="form-row">
+            <input type="text" name="city" placeholder="City" required>
+            <input type="text" name="province" placeholder="Province (e.g. ON)" required>
+          </div>
+          <div class="form-row full"><input type="text" name="postal" placeholder="Postal Code" required></div>
         </div>
-        <div class="form-row full"><input type="text" name="postal" placeholder="Postal Code" required></div>
         <button type="submit" class="btn btn-primary btn-lg btn-full pay-btn" id="payBtn">Pay Now</button>
-        <p class="pay-secure">Secured by Stripe | 7-15 day shipping</p>
+        <p class="pay-secure" id="paySecure">Secured by Stripe | 7-15 day shipping</p>
       </form>
     </div>
   </div>
