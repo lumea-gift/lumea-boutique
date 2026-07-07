@@ -3,58 +3,101 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Merci ! Telechargez votre guide — LUMEA</title>
+  <title>Merci pour votre commande ! — LUMEA</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="success-page">
     <div class="success-card">
       <div class="success-icon">
-        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="2">
+        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="2">
           <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
         </svg>
       </div>
-      <h1>Merci pour votre achat !</h1>
+      <h1>Merci pour votre commande !</h1>
       <p class="success-order" id="orderNumber"></p>
-      <p class="success-subtitle">Votre guide est pret a etre telecharge.</p>
-      <div id="downloadSection" style="display:none">
-        <a id="downloadBtn" class="btn btn-primary btn-lg btn-full download-btn" href="#">Telecharger le Guide PDF</a>
-        <p class="download-info">Le fichier PDF sera sauvegarde sur votre appareil.<br>Vous pouvez re-telecharger a tout moment avec ce lien.</p>
+
+      <div id="mainSection" style="display:none">
+        <p class="success-subtitle" id="statusText">Votre commande est en cours de traitement.</p>
+
+        <div id="orderDetails" style="margin:20px 0;text-align:left"></div>
+
+        <div id="downloadSection" style="display:none;margin:24px 0">
+          <div style="background:var(--cream);padding:16px;margin-bottom:16px;text-align:center">
+            <p style="font-size:13px;color:var(--gold);font-weight:600;margin-bottom:8px">BONUS GRATUIT INCLUS !</p>
+            <p style="font-size:12px;color:var(--gray)">Guide Routine Peau Parfaite 30 Jours (valeur 27$)</p>
+          </div>
+          <a id="downloadBtn" class="btn btn-primary btn-lg btn-full download-btn" href="#">Telecharger le Guide PDF</a>
+          <p class="download-info" style="margin-top:8px">Le guide PDF sera sauvegarde sur votre appareil.</p>
+        </div>
+
+        <div id="noGuideSection" style="display:none;margin:20px 0">
+          <div style="background:var(--off-white);padding:14px;text-align:center;font-size:12px;color:var(--gray)">Vous avez deja recu le guide avec une commande precedente.</div>
+        </div>
+
+        <div style="background:var(--off-white);padding:16px;margin:20px 0">
+          <p style="font-size:13px;color:var(--gray);text-align:center">Livraison estimee : <strong style="color:var(--gold)">7-15 jours ouvrables</strong> au Canada</p>
+          <p style="font-size:11px;color:var(--gray-light);text-align:center;margin-top:4px">Vous recevrez un email de confirmation avec le suivi.</p>
+        </div>
       </div>
+
       <div id="pendingSection" style="display:none">
-        <div class="pending-box"><div class="spinner"></div><p>Verification du paiement en cours...</p><p class="pending-sub">Cela prend quelques secondes.</p></div>
+        <div class="pending-box"><div class="spinner"></div><p>Verification du paiement...</p><p class="pending-sub">Quelques secondes...</p></div>
       </div>
+
       <div id="errorSection" style="display:none">
-        <div class="error-box"><p id="errorMessage">Une erreur est survenue.</p><button onclick="location.reload()" class="btn btn-outline" style="margin-top:16px">Reessayer</button></div>
+        <div class="error-box"><p id="errorMessage">Une erreur est survenue.</p><button onclick="location.reload()" class="btn btn-outline" style="margin-top:12px">Reessayer</button></div>
       </div>
-      <div class="success-share"><p>Partagez sur TikTok avec <strong>#LUMEA</strong> et aidez d'autres femmes !</p></div>
-      <div class="success-footer"><p>Questions ? <strong>mindsettouch@gmail.com</strong></p><a href="/" class="back-link">Retour au site LUMEA</a></div>
+
+      <div class="success-share"><p>Partagez sur TikTok avec <strong>#LUMEA</strong></p></div>
+      <div class="success-footer"><p>Questions ? <strong>mindsettouch@gmail.com</strong></p><a href="/" class="back-link">Retour a la boutique</a></div>
     </div>
   </div>
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const orderId = params.get('order'), token = params.get('token');
+    var params = new URLSearchParams(window.location.search);
+    var orderId = params.get('order'), token = params.get('token');
     if (orderId) document.getElementById('orderNumber').textContent = 'Commande ' + orderId;
-    if (!orderId || !token) {
+
+    if (!orderId) {
       document.getElementById('errorSection').style.display = 'block';
       document.getElementById('errorMessage').textContent = 'Lien invalide.';
     } else { checkOrder(); }
-    async function checkOrder() {
+
+    function checkOrder() {
       document.getElementById('pendingSection').style.display = 'block';
-      let attempts = 0;
-      async function tryCheck() {
-        try {
-          const res = await fetch('/api/orders/' + orderId);
-          const order = await res.json();
-          if (order.status === 'confirmed' || order.status === 'delivered') { showDL(); }
-          else if (attempts < 10) { attempts++; setTimeout(tryCheck, 3000); }
-          else { showDL(); }
-        } catch (e) { if (attempts < 10) { attempts++; setTimeout(tryCheck, 3000); } else { document.getElementById('pendingSection').style.display='none'; document.getElementById('errorSection').style.display='block'; } }
+      var attempts = 0;
+      function tryCheck() {
+        fetch('/api/orders/' + orderId).then(function(r) { return r.json(); }).then(function(order) {
+          if (order.status === 'confirmed' || order.status === 'delivered' || attempts >= 8) {
+            showOrder(order);
+          } else { attempts++; setTimeout(tryCheck, 2500); }
+        }).catch(function() {
+          if (attempts < 8) { attempts++; setTimeout(tryCheck, 3000); }
+          else { document.getElementById('pendingSection').style.display='none'; document.getElementById('errorSection').style.display='block'; }
+        });
       }
-      function showDL() {
+
+      function showOrder(order) {
         document.getElementById('pendingSection').style.display = 'none';
-        document.getElementById('downloadSection').style.display = 'block';
-        document.getElementById('downloadBtn').href = '/api/download/' + token;
+        document.getElementById('mainSection').style.display = 'block';
+
+        if (order.status === 'confirmed' || order.status === 'delivered') {
+          document.getElementById('statusText').textContent = 'Votre commande est confirmee !';
+        }
+
+        var details = document.getElementById('orderDetails');
+        if (order.items && order.items.length) {
+          details.innerHTML = order.items.map(function(item) {
+            return '<div style="display:flex;justify-content:space-between;padding:6px 0;font-size:13px;border-bottom:1px solid rgba(0,0,0,.06)"><span>' + item.name + ' x' + item.qty + '</span><span style="color:var(--gold);font-weight:600">' + (item.price * item.qty).toFixed(2) + ' $</span></div>';
+          }).join('') + '<div style="display:flex;justify-content:space-between;padding:10px 0;font-size:15px;font-weight:700"><span>Total</span><span style="color:var(--gold)">' + order.total.toFixed(2) + ' $ CAD</span></div>';
+        }
+
+        if (token && order.isNewCustomer !== false) {
+          document.getElementById('downloadSection').style.display = 'block';
+          document.getElementById('downloadBtn').href = '/api/download/' + token;
+        } else if (!token) {
+          document.getElementById('noGuideSection').style.display = 'block';
+        }
       }
       tryCheck();
     }
