@@ -66,6 +66,8 @@ ul{list-style:none}.container{max-width:1100px;margin:0 auto;padding:0 24px}
 .product-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
 .product-tag{position:absolute;top:16px;right:-28px;transform:rotate(45deg);padding:4px 40px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--white)}
 .product-emoji{font-size:56px;margin:20px 0 16px;filter:drop-shadow(0 4px 8px rgba(0,0,0,.1))}
+.product-img{width:100%;height:220px;display:flex;align-items:center;justify-content:center;margin:16px 0;overflow:hidden;background:var(--white)}
+.product-img img{max-width:100%;max-height:200px;object-fit:contain}
 .product-name{font-family:var(--font-heading);font-size:18px;font-weight:500;color:var(--black);margin-bottom:6px}
 .product-subtitle{font-size:12px;color:var(--gray);margin-bottom:16px;line-height:1.5}
 .product-price{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:16px}
