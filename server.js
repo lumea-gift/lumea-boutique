@@ -97,6 +97,20 @@ const PRODUCTS = [
     emoji: '\uD83E\uDDF4',
     image: '/images/medicube.jpg',
     color: '#F3E5F5'
+  },
+  {
+    id: 'skincare-guide-pdf',
+    name: 'Perfect Skin Routine — 30 Day Guide',
+    subtitle: '22-page digital guide (PDF)',
+    price: 12.99,
+    oldPrice: 27.00,
+    description: 'Complete 22-page skincare guide: skin type quiz, personalized AM & PM routines, 8 miracle ingredients explained, 5 DIY face mask recipes, 30-day transformation calendar, and expert product recommendations.',
+    features: ['Skin type quiz', 'AM & PM routines', '5 DIY face masks', '30-day calendar'],
+    tag: 'DIGITAL',
+    emoji: '\uD83D\uDCD6',
+    image: '',
+    color: '#FFF3E0',
+    type: 'digital'
   }
 ];
 
@@ -113,7 +127,7 @@ app.get('/api/config', function(req, res) {
 
 app.get('/api/products', function(req, res) {
   res.json(PRODUCTS.map(function(p) {
-    return { id: p.id, name: p.name, subtitle: p.subtitle, price: p.price, oldPrice: p.oldPrice, description: p.description, features: p.features, tag: p.tag, emoji: p.emoji, image: p.image, color: p.color };
+    return { id: p.id, name: p.name, subtitle: p.subtitle, price: p.price, oldPrice: p.oldPrice, description: p.description, features: p.features, tag: p.tag, emoji: p.emoji, image: p.image, color: p.color, type: p.type || 'physical' };
   }));
 });
 
@@ -128,8 +142,14 @@ app.post('/api/checkout', async function(req, res) {
   try {
     var body = req.body;
     var email = body.email, name = body.name, address = body.address, city = body.city, province = body.province, postal = body.postal, items = body.items;
-    if (!email || !items || !items.length) return res.status(400).json({ error: 'Email et produits requis' });
-    if (!address || !city || !postal) return res.status(400).json({ error: 'Adresse de livraison requise' });
+    if (!email || !items || !items.length) return res.status(400).json({ error: 'Email and products required' });
+
+    // Check if order has physical items
+    var hasPhysical = items.some(function(item) {
+      var prod = PRODUCTS.find(function(p) { return p.id === item.id; });
+      return !prod || prod.type !== 'digital';
+    });
+    if (hasPhysical && (!address || !city || !postal)) return res.status(400).json({ error: 'Shipping address required' });
 
     var orderItems = [];
     var totalCents = 0;
@@ -146,9 +166,10 @@ app.post('/api/checkout', async function(req, res) {
     // Check if this email already ordered (for PDF bonus logic)
     var db = loadDB();
     var isNewCustomer = !db.knownEmails.includes(email.toLowerCase());
+    var boughtGuide = items.some(function(item) { return item.id === 'skincare-guide-pdf'; });
 
     var orderId = 'LUM-' + uuidv4().slice(0, 8).toUpperCase();
-    var downloadToken = isNewCustomer ? uuidv4() : null;
+    var downloadToken = (isNewCustomer || boughtGuide) ? uuidv4() : null;
 
     var order = {
       id: orderId,
