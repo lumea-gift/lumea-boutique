@@ -8,113 +8,197 @@ const { generateGuide } = require('./generate-guide');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// ==================== JSON DATABASE ====================
 const dataDir = path.join(__dirname, 'data');
 if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir);
-
 const DB_PATH = path.join(dataDir, 'db.json');
 
 function loadDB() {
-  try {
-    if (fs.existsSync(DB_PATH)) return JSON.parse(fs.readFileSync(DB_PATH, 'utf8'));
-  } catch(e) {}
-  return { orders: [], newsletter: [], downloads: [] };
+  try { if (fs.existsSync(DB_PATH)) return JSON.parse(fs.readFileSync(DB_PATH, 'utf8')); } catch(e) {}
+  return { orders: [], newsletter: [], knownEmails: [] };
 }
+function saveDB(data) { fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2)); }
 
-function saveDB(data) {
-  fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2));
-}
-
-// ==================== PRODUCT ====================
-const PRODUCT = {
-  id: 'guide-30-jours',
-  name: 'Guide Routine Peau Parfaite 30 Jours',
-  price: 27,
-  priceInCents: 2700,
-  oldPrice: 67,
-  description: 'Le guide complet pour transformer votre peau en 30 jours.',
-  currency: 'cad'
-};
+// ==================== PRODUCTS CATALOG ====================
+const PRODUCTS = [
+  {
+    id: 'ice-bath-bowl',
+    name: 'Facial Ice Bath Bowl',
+    subtitle: 'Soin visage anti-poches & pores',
+    price: 29.99,
+    oldPrice: 54.99,
+    description: 'Bol de glace facial en silicone pliable pour une immersion compl\u00e8te du visage. R\u00e9duit les inflammations, resserre les pores et apaise l\u2019acn\u00e9. Inclut un moule \u00e0 glace int\u00e9gr\u00e9. Compact et id\u00e9al pour voyager.',
+    features: ['R\u00e9duit poches et gonflements', 'Resserre les pores en 3 min', 'Silicone BPA-free pliable', 'Moule \u00e0 glace int\u00e9gr\u00e9'],
+    tag: 'VIRAL TIKTOK',
+    emoji: '\u2744\uFE0F',
+    color: '#E3F2FD'
+  },
+  {
+    id: 'silicone-brush',
+    name: '2-in-1 Silicone Face Brush',
+    subtitle: 'Nettoyage profond + exfoliation douce',
+    price: 17.99,
+    oldPrice: 34.99,
+    description: 'Brosse faciale double face en silicone. C\u00f4t\u00e9 nettoyage profond + c\u00f4t\u00e9 exfoliation douce. Anti-bact\u00e9rienne, r\u00e9utilisable et \u00e9co-friendly. Compatible avec tous les nettoyants.',
+    features: ['Double face : nettoyage + exfoliation', 'Silicone anti-bact\u00e9rien', '\u00c9co-friendly et r\u00e9utilisable', 'Pour tous types de peau'],
+    tag: 'BEST SELLER',
+    emoji: '\u2728',
+    color: '#F3E5F5'
+  },
+  {
+    id: 'lip-liner-peel',
+    name: 'Lip Liner Stay-N-Peel',
+    subtitle: 'L\u00e8vres parfaites toute la journ\u00e9e',
+    price: 14.99,
+    oldPrice: 29.99,
+    description: 'Le lip liner qui a g\u00e9n\u00e9r\u00e9 46 millions de dollars de ventes sur TikTok ! Appliquez, laissez s\u00e9cher, pelez \u2014 couleur longue tenue garantie 12h+ sans transfert.',
+    features: ['Tenue 12h+ sans transfert', 'Effet naturel et peel-off', '6 teintes disponibles', '46M de ventes TikTok'],
+    tag: '#1 TIKTOK',
+    emoji: '\uD83D\uDC8B',
+    color: '#FCE4EC'
+  },
+  {
+    id: 'neck-cream',
+    name: 'Cr\u00e8me Cou & D\u00e9collet\u00e9 Anti-\u00c2ge',
+    subtitle: 'Raffermissant et lissant',
+    price: 34.99,
+    oldPrice: 64.99,
+    description: 'Cr\u00e8me sp\u00e9cialement formul\u00e9e pour le cou et le d\u00e9collet\u00e9 \u2014 zones souvent oubli\u00e9es. Effet tenseur visible d\u00e8s 7 jours. Peptides + acide hyaluronique.',
+    features: ['Effet tenseur en 7 jours', 'Peptides + acide hyaluronique', 'Zone cou et d\u00e9collet\u00e9', '32M de ventes TikTok'],
+    tag: 'ANTI-\u00c2GE',
+    emoji: '\u2B50',
+    color: '#FFF8E1'
+  },
+  {
+    id: 'scent-necklace',
+    name: 'Collier Diffuseur de Parfum',
+    subtitle: 'Votre parfum toute la journ\u00e9e',
+    price: 14.99,
+    oldPrice: 29.99,
+    description: 'Collier \u00e9l\u00e9gant avec diffuseur de parfum int\u00e9gr\u00e9. Ajoutez quelques gouttes de votre parfum pr\u00e9f\u00e9r\u00e9 et profitez d\u2019un parfum subtil toute la journ\u00e9e. Cadeau id\u00e9al.',
+    features: ['Diffuse votre parfum 24h', 'Design \u00e9l\u00e9gant et discret', 'Compatible tous parfums', 'Id\u00e9e cadeau parfaite'],
+    tag: 'CADEAU ID\u00c9AL',
+    emoji: '\uD83C\uDF38',
+    color: '#F1F8E9'
+  },
+  {
+    id: 'self-clean-brush',
+    name: 'Brosse Cheveux Auto-Nettoyante',
+    subtitle: 'Un clic pour la nettoyer',
+    price: 19.99,
+    oldPrice: 39.99,
+    description: 'Brosse \u00e0 cheveux avec bouton auto-nettoyant. Un clic et tous les cheveux sont \u00e9ject\u00e9s. Coussin d\u2019air pour massage du cuir chevelu. Anti-statique pour des cheveux lisses et brillants.',
+    features: ['Nettoyage en 1 clic', 'Massage du cuir chevelu', 'Anti-statique anti-frizz', 'Evergreen best-seller'],
+    tag: 'PRATIQUE',
+    emoji: '\uD83D\uDC87',
+    color: '#E8F5E9'
+  }
+];
 
 // ==================== MIDDLEWARE ====================
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
-app.get('/api/config', (req, res) => {
+app.get('/api/config', function(req, res) {
   res.json({
     stripePublishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
-    tiktokPixelId: process.env.TIKTOK_PIXEL_ID,
-    baseUrl: process.env.BASE_URL || `http://localhost:${PORT}`
+    baseUrl: process.env.BASE_URL || ('http://localhost:' + PORT)
   });
 });
 
-app.get('/api/product', (req, res) => {
-  res.json({
-    id: PRODUCT.id,
-    name: PRODUCT.name,
-    price: PRODUCT.price,
-    oldPrice: PRODUCT.oldPrice,
-    description: PRODUCT.description
-  });
+app.get('/api/products', function(req, res) {
+  res.json(PRODUCTS.map(function(p) {
+    return { id: p.id, name: p.name, subtitle: p.subtitle, price: p.price, oldPrice: p.oldPrice, description: p.description, features: p.features, tag: p.tag, emoji: p.emoji, color: p.color };
+  }));
 });
 
-// ==================== CHECKOUT ====================
-app.post('/api/checkout', async (req, res) => {
+app.get('/api/products/:id', function(req, res) {
+  var p = PRODUCTS.find(function(x) { return x.id === req.params.id; });
+  if (!p) return res.status(404).json({ error: 'Produit introuvable' });
+  res.json(p);
+});
+
+// ==================== CHECKOUT (physical products) ====================
+app.post('/api/checkout', async function(req, res) {
   try {
-    const { email, name } = req.body;
-    if (!email) return res.status(400).json({ error: 'Email requis' });
+    var body = req.body;
+    var email = body.email, name = body.name, address = body.address, city = body.city, province = body.province, postal = body.postal, items = body.items;
+    if (!email || !items || !items.length) return res.status(400).json({ error: 'Email et produits requis' });
+    if (!address || !city || !postal) return res.status(400).json({ error: 'Adresse de livraison requise' });
 
-    const orderId = 'LUM-' + uuidv4().slice(0, 8).toUpperCase();
-    const downloadToken = uuidv4();
+    var orderItems = [];
+    var totalCents = 0;
+    items.forEach(function(item) {
+      var prod = PRODUCTS.find(function(p) { return p.id === item.id; });
+      if (prod) {
+        var qty = item.qty || 1;
+        orderItems.push({ id: prod.id, name: prod.name, price: prod.price, qty: qty });
+        totalCents += Math.round(prod.price * 100) * qty;
+      }
+    });
+    if (!orderItems.length) return res.status(400).json({ error: 'Aucun produit valide' });
 
-    const order = {
+    // Check if this email already ordered (for PDF bonus logic)
+    var db = loadDB();
+    var isNewCustomer = !db.knownEmails.includes(email.toLowerCase());
+
+    var orderId = 'LUM-' + uuidv4().slice(0, 8).toUpperCase();
+    var downloadToken = isNewCustomer ? uuidv4() : null;
+
+    var order = {
       id: orderId,
       customer_name: name || '',
       customer_email: email,
-      product: PRODUCT.name,
-      price: PRODUCT.price,
-      downloadToken,
+      shipping: { address: address, city: city, province: province || '', postal: postal },
+      items: orderItems,
+      total: totalCents / 100,
+      downloadToken: downloadToken,
+      isNewCustomer: isNewCustomer,
       status: 'pending',
       created_at: new Date().toISOString()
     };
 
-    const stripeKey = process.env.STRIPE_SECRET_KEY;
-    if (stripeKey && !stripeKey.includes('VOTRE_CLE')) {
-      const stripe = require('stripe')(stripeKey);
-
-      const session = await stripe.checkout.sessions.create({
-        payment_method_types: ['card'],
-        line_items: [{
+    var stripeKey = process.env.STRIPE_SECRET_KEY;
+    if (stripeKey && stripeKey.indexOf('VOTRE_CLE') === -1) {
+      var stripe = require('stripe')(stripeKey);
+      var lineItems = orderItems.map(function(item) {
+        return {
           price_data: {
             currency: 'cad',
-            product_data: {
-              name: PRODUCT.name,
-              description: 'Guide digital PDF - Livraison instantanee par telechargement'
-            },
-            unit_amount: PRODUCT.priceInCents
+            product_data: { name: item.name },
+            unit_amount: Math.round(item.price * 100)
           },
-          quantity: 1
-        }],
+          quantity: item.qty
+        };
+      });
+
+      var successUrl = (process.env.BASE_URL || 'http://localhost:' + PORT) + '/success.html?order=' + orderId;
+      if (downloadToken) successUrl += '&token=' + downloadToken;
+
+      var session = await stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        line_items: lineItems,
         mode: 'payment',
-        success_url: `${process.env.BASE_URL || 'http://localhost:' + PORT}/success.html?order=${orderId}&token=${downloadToken}`,
-        cancel_url: `${process.env.BASE_URL || 'http://localhost:' + PORT}/`,
+        success_url: successUrl,
+        cancel_url: (process.env.BASE_URL || 'http://localhost:' + PORT) + '/',
         customer_email: email,
-        metadata: { orderId, downloadToken }
+        metadata: { orderId: orderId }
       });
 
       order.stripe_session_id = session.id;
-      const db = loadDB();
       db.orders.push(order);
+      if (isNewCustomer) db.knownEmails.push(email.toLowerCase());
       saveDB(db);
-      return res.json({ url: session.url, orderId });
+      return res.json({ url: session.url, orderId: orderId });
     }
 
     // Demo mode
     order.status = 'confirmed';
-    const db = loadDB();
     db.orders.push(order);
+    if (isNewCustomer) db.knownEmails.push(email.toLowerCase());
     saveDB(db);
-    res.json({ url: `/success.html?order=${orderId}&token=${downloadToken}`, orderId, demo: true });
+    var demoUrl = '/success.html?order=' + orderId;
+    if (downloadToken) demoUrl += '&token=' + downloadToken;
+    res.json({ url: demoUrl, orderId: orderId, demo: true });
   } catch (err) {
     console.error('Checkout error:', err);
     res.status(500).json({ error: err.message });
@@ -122,127 +206,85 @@ app.post('/api/checkout', async (req, res) => {
 });
 
 // ==================== STRIPE WEBHOOK ====================
-app.post('/api/webhook', express.raw({ type: 'application/json' }), (req, res) => {
-  const stripeKey = process.env.STRIPE_SECRET_KEY;
-  if (!stripeKey || stripeKey.includes('VOTRE_CLE')) return res.sendStatus(200);
+app.post('/api/webhook', express.raw({ type: 'application/json' }), function(req, res) {
+  var stripeKey = process.env.STRIPE_SECRET_KEY;
+  if (!stripeKey || stripeKey.indexOf('VOTRE_CLE') !== -1) return res.sendStatus(200);
   try {
-    const stripe = require('stripe')(stripeKey);
-    const sig = req.headers['stripe-signature'];
-    const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
-    let event;
-    if (webhookSecret) {
-      event = stripe.webhooks.constructEvent(req.body, sig, webhookSecret);
-    } else {
-      event = JSON.parse(req.body);
-    }
+    var stripe = require('stripe')(stripeKey);
+    var sig = req.headers['stripe-signature'];
+    var webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+    var event;
+    if (webhookSecret) { event = stripe.webhooks.constructEvent(req.body, sig, webhookSecret); }
+    else { event = JSON.parse(req.body); }
     if (event.type === 'checkout.session.completed') {
-      const session = event.data.object;
-      const orderId = session.metadata.orderId;
-      const db = loadDB();
-      const order = db.orders.find(o => o.id === orderId);
-      if (order) {
-        order.status = 'confirmed';
-        order.paid_at = new Date().toISOString();
-        saveDB(db);
-      }
-      console.log(`Order ${orderId} confirmed!`);
+      var session = event.data.object;
+      var orderId = session.metadata.orderId;
+      var db = loadDB();
+      var order = db.orders.find(function(o) { return o.id === orderId; });
+      if (order) { order.status = 'confirmed'; order.paid_at = new Date().toISOString(); saveDB(db); }
     }
-  } catch (err) {
-    console.error('Webhook error:', err.message);
-    return res.status(400).send(`Webhook Error: ${err.message}`);
-  }
+  } catch (err) { console.error('Webhook error:', err.message); return res.status(400).send('Webhook Error'); }
   res.sendStatus(200);
 });
 
-// ==================== DOWNLOAD ====================
-app.get('/api/download/:token', (req, res) => {
-  const { token } = req.params;
-  const db = loadDB();
-  const order = db.orders.find(o => o.downloadToken === token);
+// ==================== DOWNLOAD (PDF bonus) ====================
+app.get('/api/download/:token', function(req, res) {
+  var token = req.params.token;
+  var db = loadDB();
+  var order = db.orders.find(function(o) { return o.downloadToken === token; });
   if (!order) return res.status(404).json({ error: 'Lien invalide' });
-
-  const guidePath = path.join(__dirname, 'data', 'guide-lumea.pdf');
-  if (!fs.existsSync(guidePath)) {
-    return res.status(500).json({ error: 'Guide en preparation. Reessayez dans 1 minute.' });
-  }
-
-  order.status = 'delivered';
-  order.downloaded_at = new Date().toISOString();
-  if (!db.downloads) db.downloads = [];
-  db.downloads.push({ orderId: order.id, email: order.customer_email, date: new Date().toISOString() });
-  saveDB(db);
+  var guidePath = path.join(__dirname, 'data', 'guide-lumea.pdf');
+  if (!fs.existsSync(guidePath)) return res.status(500).json({ error: 'Guide en preparation.' });
   res.download(guidePath, 'LUMEA-Guide-Routine-Peau-Parfaite-30-Jours.pdf');
 });
 
 // ==================== ORDER STATUS ====================
-app.get('/api/orders/:id', (req, res) => {
-  const db = loadDB();
-  const order = db.orders.find(o => o.id === req.params.id);
+app.get('/api/orders/:id', function(req, res) {
+  var db = loadDB();
+  var order = db.orders.find(function(o) { return o.id === req.params.id; });
   if (!order) return res.status(404).json({ error: 'Commande introuvable' });
-  res.json({ id: order.id, status: order.status, product: order.product, price: order.price });
+  res.json({ id: order.id, status: order.status, items: order.items, total: order.total, shipping: order.shipping, isNewCustomer: order.isNewCustomer });
+});
+
+// ==================== ADMIN ====================
+app.post('/api/admin/login', function(req, res) {
+  if (req.body.password === process.env.ADMIN_PASSWORD) res.json({ token: 'admin-' + Date.now() });
+  else res.status(401).json({ error: 'Mot de passe incorrect' });
+});
+app.get('/api/admin/orders', function(req, res) {
+  if (!req.headers.authorization || !req.headers.authorization.startsWith('admin-')) return res.status(401).json({ error: 'Non autorise' });
+  var db = loadDB();
+  var orders = db.orders.sort(function(a, b) { return new Date(b.created_at) - new Date(a.created_at); });
+  res.json({
+    orders: orders,
+    stats: {
+      totalOrders: orders.length,
+      totalRevenue: orders.reduce(function(s, o) { return s + (o.total || 0); }, 0),
+      pendingOrders: orders.filter(function(o) { return o.status === 'pending'; }).length,
+      confirmedOrders: orders.filter(function(o) { return o.status === 'confirmed'; }).length
+    }
+  });
 });
 
 // ==================== NEWSLETTER ====================
-app.post('/api/newsletter', (req, res) => {
-  const { email } = req.body;
+app.post('/api/newsletter', function(req, res) {
+  var email = req.body.email;
   if (!email) return res.status(400).json({ error: 'Email requis' });
-  const db = loadDB();
-  if (!db.newsletter.find(s => s.email === email)) {
-    db.newsletter.push({ email, created_at: new Date().toISOString() });
+  var db = loadDB();
+  if (!db.newsletter) db.newsletter = [];
+  if (!db.newsletter.find(function(s) { return s.email === email; })) {
+    db.newsletter.push({ email: email, created_at: new Date().toISOString() });
     saveDB(db);
   }
   res.json({ success: true });
 });
 
-// ==================== ADMIN ====================
-app.post('/api/admin/login', (req, res) => {
-  if (req.body.password === process.env.ADMIN_PASSWORD) {
-    res.json({ token: 'admin-' + Date.now() });
-  } else {
-    res.status(401).json({ error: 'Mot de passe incorrect' });
-  }
-});
-
-app.get('/api/admin/orders', (req, res) => {
-  if (!req.headers.authorization?.startsWith('admin-')) return res.status(401).json({ error: 'Non autorise' });
-  const db = loadDB();
-  const orders = db.orders.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-  res.json({
-    orders,
-    stats: {
-      totalOrders: orders.length,
-      totalRevenue: orders.reduce((sum, o) => sum + o.price, 0),
-      pendingOrders: orders.filter(o => o.status === 'pending').length,
-      confirmedOrders: orders.filter(o => o.status === 'confirmed' || o.status === 'delivered').length
-    }
-  });
-});
-
-app.get('/api/admin/newsletter', (req, res) => {
-  if (!req.headers.authorization?.startsWith('admin-')) return res.status(401).json({ error: 'Non autorise' });
-  res.json(loadDB().newsletter);
-});
-
 // ==================== START ====================
 async function startServer() {
-  try {
-    await generateGuide();
-    console.log('Guide PDF ready!');
-  } catch (err) {
-    console.error('Error generating guide:', err.message);
-  }
-  app.listen(PORT, () => {
-    const mode = process.env.STRIPE_SECRET_KEY?.includes('VOTRE_CLE') ? 'DEMO' : 'PRODUCTION';
-    console.log(`
-  ========================================
-      LUMEA BOUTIQUE - Produits Digitaux
-  ========================================
-  Site  : http://localhost:${PORT}
-  Admin : http://localhost:${PORT}/admin.html
-  Mode  : ${mode}
-  ========================================
-    `);
+  try { await generateGuide(); console.log('Guide PDF ready!'); }
+  catch (err) { console.error('Error generating guide:', err.message); }
+  app.listen(PORT, function() {
+    console.log('\n  LUMEA BOUTIQUE on port ' + PORT + '\n');
   });
 }
-
 startServer();
