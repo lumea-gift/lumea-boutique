@@ -42,15 +42,17 @@ function renderProducts() {
     var imgHtml = p.image
       ? '<div class="product-img"><img src="' + p.image + '" alt="' + p.name + '"></div>'
       : '<div class="product-img product-img-emoji">' + p.emoji + '</div>';
-    return '<div class="product-card reveal" style="border-top:4px solid ' + p.color + '">' +
+    return '<div class="product-card reveal">' +
       '<div class="product-tag" style="background:' + p.color + '">' + p.tag + '</div>' +
       imgHtml +
+      '<div class="product-card-body">' +
       '<h3 class="product-name">' + p.name + '</h3>' +
       '<p class="product-subtitle">' + p.subtitle + '</p>' +
       '<div class="product-price"><span class="price-old">' + p.oldPrice.toFixed(2) + ' $</span><span class="price-current">' + p.price.toFixed(2) + ' $</span><span class="price-save">-' + discount + '%</span></div>' +
       '<ul class="product-features">' + p.features.map(function(f) { return '<li>&#10003; ' + f + '</li>'; }).join('') + '</ul>' +
       (p.type === 'digital' ? '<p class="digital-note">Instant PDF download after purchase</p>' : '') +
       '<button class="btn btn-primary btn-full add-cart-btn" onclick="addToCart(\'' + p.id + '\')">Add to Cart</button>' +
+      '</div>' +
     '</div>';
   }).join('');
   initReveal();
