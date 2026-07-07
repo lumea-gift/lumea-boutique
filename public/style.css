@@ -246,6 +246,7 @@ ul{list-style:none}.container{max-width:1100px;margin:0 auto;padding:0 24px}
 .reveal{opacity:1;transform:translateY(0);transition:all .6s ease}
 .product-img-emoji{font-size:72px;display:flex;align-items:center;justify-content:center;min-height:180px;background:linear-gradient(135deg,#FFF3E0,#FFE0B2);border-radius:12px}
 .digital-note{font-size:12px;color:var(--gold);font-weight:600;margin:-4px 0 10px;text-align:center}
+.reco-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px;margin-bottom:20px}
 
 /* ===== RESPONSIVE ===== */
 @media(max-width:768px){
