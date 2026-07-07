@@ -141,7 +141,7 @@ app.get('/api/products/:id', function(req, res) {
 app.post('/api/checkout', async function(req, res) {
   try {
     var body = req.body;
-    var email = body.email, name = body.name, address = body.address, city = body.city, province = body.province, postal = body.postal, items = body.items;
+    var email = body.email, name = body.name, address = body.address, city = body.city, province = body.province, postal = body.postal, country = body.country, items = body.items;
     if (!email || !items || !items.length) return res.status(400).json({ error: 'Email and products required' });
 
     // Check if order has physical items
@@ -175,7 +175,7 @@ app.post('/api/checkout', async function(req, res) {
       id: orderId,
       customer_name: name || '',
       customer_email: email,
-      shipping: { address: address, city: city, province: province || '', postal: postal },
+      shipping: { address: address, city: city, province: province || '', postal: postal, country: country || '' },
       items: orderItems,
       total: totalCents / 100,
       downloadToken: downloadToken,
