@@ -30,6 +30,7 @@ const PRODUCTS = [
     features: ['R\u00e9duit poches et gonflements', 'Resserre les pores en 3 min', 'Silicone BPA-free pliable', 'Moule \u00e0 glace int\u00e9gr\u00e9'],
     tag: 'VIRAL TIKTOK',
     emoji: '\u2744\uFE0F',
+    image: 'https://m.media-amazon.com/images/I/711A+o3zawL._SX425_.jpg',
     color: '#E3F2FD'
   },
   {
@@ -42,6 +43,7 @@ const PRODUCTS = [
     features: ['Double face : nettoyage + exfoliation', 'Silicone anti-bact\u00e9rien', '\u00c9co-friendly et r\u00e9utilisable', 'Pour tous types de peau'],
     tag: 'BEST SELLER',
     emoji: '\u2728',
+    image: 'https://m.media-amazon.com/images/I/41lw073VjAL._SX425_.jpg',
     color: '#F3E5F5'
   },
   {
@@ -54,6 +56,7 @@ const PRODUCTS = [
     features: ['Tenue 12h+ sans transfert', 'Effet naturel et peel-off', '6 teintes disponibles', '46M de ventes TikTok'],
     tag: '#1 TIKTOK',
     emoji: '\uD83D\uDC8B',
+    image: 'https://m.media-amazon.com/images/I/61YQwUKJURL._SX425_.jpg',
     color: '#FCE4EC'
   },
   {
@@ -66,6 +69,7 @@ const PRODUCTS = [
     features: ['Effet tenseur en 7 jours', 'Peptides + acide hyaluronique', 'Zone cou et d\u00e9collet\u00e9', '32M de ventes TikTok'],
     tag: 'ANTI-\u00c2GE',
     emoji: '\u2B50',
+    image: 'https://m.media-amazon.com/images/I/71kQx+GKXRL._SX425_.jpg',
     color: '#FFF8E1'
   },
   {
@@ -78,6 +82,7 @@ const PRODUCTS = [
     features: ['Diffuse votre parfum 24h', 'Design \u00e9l\u00e9gant et discret', 'Compatible tous parfums', 'Id\u00e9e cadeau parfaite'],
     tag: 'CADEAU ID\u00c9AL',
     emoji: '\uD83C\uDF38',
+    image: 'https://m.media-amazon.com/images/I/614CfwDTasL._SX425_.jpg',
     color: '#F1F8E9'
   },
   {
@@ -90,6 +95,7 @@ const PRODUCTS = [
     features: ['Nettoyage en 1 clic', 'Massage du cuir chevelu', 'Anti-statique anti-frizz', 'Evergreen best-seller'],
     tag: 'PRATIQUE',
     emoji: '\uD83D\uDC87',
+    image: 'https://m.media-amazon.com/images/I/51W8r02t8GL._SX425_.jpg',
     color: '#E8F5E9'
   }
 ];
@@ -107,7 +113,7 @@ app.get('/api/config', function(req, res) {
 
 app.get('/api/products', function(req, res) {
   res.json(PRODUCTS.map(function(p) {
-    return { id: p.id, name: p.name, subtitle: p.subtitle, price: p.price, oldPrice: p.oldPrice, description: p.description, features: p.features, tag: p.tag, emoji: p.emoji, color: p.color };
+    return { id: p.id, name: p.name, subtitle: p.subtitle, price: p.price, oldPrice: p.oldPrice, description: p.description, features: p.features, tag: p.tag, emoji: p.emoji, image: p.image, color: p.color };
   }));
 });
 
