@@ -194,3 +194,37 @@ function initReveal() {
   document.querySelectorAll('.reveal:not(.visible)').forEach(function(el) { observer.observe(el); });
 }
 initReveal();
+
+// ==================== EMAIL POPUP ====================
+(function() {
+  if (localStorage.getItem('lumea_popup_dismissed')) return;
+  var overlay = document.getElementById('popupOverlay');
+  var closeBtn = document.getElementById('popupClose');
+  var form = document.getElementById('popupForm');
+  if (!overlay) return;
+
+  function showPopup() { overlay.classList.add('active'); }
+  function hidePopup() { overlay.classList.remove('active'); localStorage.setItem('lumea_popup_dismissed', '1'); }
+
+  setTimeout(showPopup, 5000);
+
+  document.addEventListener('mouseleave', function(e) {
+    if (e.clientY < 5 && !localStorage.getItem('lumea_popup_dismissed')) showPopup();
+  });
+
+  closeBtn.addEventListener('click', hidePopup);
+  overlay.addEventListener('click', function(e) { if (e.target === overlay) hidePopup(); });
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var email = document.getElementById('popupEmail').value;
+    fetch('/api/newsletter', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email })
+    }).then(function() {
+      form.parentElement.innerHTML = '<div class="popup-success">&#10003; You\'re in!<br><span style="font-size:14px;color:#555;font-weight:400">Check your inbox for your 10% code.</span></div>';
+      setTimeout(hidePopup, 3000);
+    });
+  });
+})();
