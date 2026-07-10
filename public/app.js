@@ -83,7 +83,7 @@ function updateCartUI() {
     var subtotal = p.price * c.qty;
     total += subtotal;
     return '<div class="cart-item">' +
-      '<div class="cart-item-emoji">' + p.emoji + '</div>' +
+      '<div class="cart-item-img"><img src="' + p.image + '" alt="' + p.name + '"></div>' +
       '<div class="cart-item-info"><h4>' + p.name + '</h4><p>' + p.price.toFixed(2) + ' $ x ' + c.qty + '</p></div>' +
       '<div class="cart-item-actions">' +
         '<button onclick="changeQty(\'' + c.id + '\', -1)">-</button>' +
