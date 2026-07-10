@@ -197,19 +197,18 @@ initReveal();
 
 // ==================== EMAIL POPUP ====================
 (function() {
-  if (localStorage.getItem('lumea_popup_dismissed')) return;
   var overlay = document.getElementById('popupOverlay');
   var closeBtn = document.getElementById('popupClose');
   var form = document.getElementById('popupForm');
   if (!overlay) return;
 
   function showPopup() { overlay.classList.add('active'); }
-  function hidePopup() { overlay.classList.remove('active'); localStorage.setItem('lumea_popup_dismissed', '1'); }
+  function hidePopup() { overlay.classList.remove('active'); }
 
   setTimeout(showPopup, 5000);
 
   document.addEventListener('mouseleave', function(e) {
-    if (e.clientY < 5 && !localStorage.getItem('lumea_popup_dismissed')) showPopup();
+    if (e.clientY < 5 && !overlay.classList.contains('active')) showPopup();
   });
 
   closeBtn.addEventListener('click', hidePopup);
